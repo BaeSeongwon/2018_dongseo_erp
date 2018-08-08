@@ -10,6 +10,114 @@ const routes = [
         component: () => import('@/components/CommonTest/Test')
     },
     {
+        path: '/order',
+        name: 'OrderContainer',
+        component: () => import('@/components/Dashboard/Layout'),
+        children: [
+            {
+                path: 'list',
+                name: 'OrderContainer.List',
+                component: () => import('@/components/OrderContainer/List')
+            },
+            {
+                path: 'product',
+                name: 'OrderContainer.ProductList',
+                component: () => import('@/components/OrderContainer/ProductList')
+            },
+            {
+                path: 'return',
+                name: 'OrderContainer.Return',
+                component: () => import('@/components/OrderContainer/Return')
+            },
+            {
+                path: 'setting',
+                name: 'OrderContainer.Setting',
+                component: () => import('@/components/OrderContainer/Setting')
+            }
+        ]
+    },
+    {
+        path: '/inventory',
+        name: 'InventoryContainer',
+        component: () => import('@/components/Dashboard/Layout'),
+        children: [
+            {
+                path: 'management',
+                name: 'InventoryContainer.AreaManagement',
+                component: () => import('@/components/InventoryContainer/AreaManagement')
+            },
+            {
+                path: 'list',
+                name: 'InventoryContainer.SrList',
+                component: () => import('@/components/InventoryContainer/SrList')
+            },
+            {
+                path: 'srmanagement',
+                name: 'InventoryContainer.SrManagement',
+                component: () => import('@/components/InventoryContainer/SrManagement')
+            },
+            {
+                path: 'stock',
+                name: 'InventoryContainer.StockStatus',
+                component: () => import('@/components/InventoryContainer/StockStatus')
+            }
+        ]
+    },
+    {
+        path: '/product',
+        name: 'ProductContainer',
+        component: () => import('@/components/Dashboard/Layout'),
+        children: [
+            {
+                path: 'category',
+                name: 'ProductContainer.CategorySetting',
+                component: () => import('@/components/ProductContainer/CategorySetting')
+            },
+            {
+                path: 'product',
+                name: 'ProductContainer.Product',
+                component: () => import('@/components/ProductContainer/Product')
+            }
+        ]
+    },
+    {
+        path: '/customer',
+        name: 'CustomerContainer',
+        component: () => import('@/components/Dashboard/Layout'),
+        children: [
+            {
+                path: 'application-list',
+                name: 'CustomerContainer.ApplicationList',
+                component: () => import('@/components/CustomerContainer/ApplicationList')
+            },
+            {
+                path: 'approval',
+                name: 'CustomerContainer.ApprovalMethod',
+                component: () => import('@/components/CustomerContainer/ApprovalMethod')
+            },
+            {
+                path: 'credit',
+                name: 'CustomerContainer.Credit',
+                component: () => import('@/components/CustomerContainer/Credit')
+            },
+            {
+                path: 'deposit',
+                name: 'CustomerContainer.deposit',
+                component: () => import('@/components/CustomerContainer/deposit')
+            },
+            {
+                path: 'estimate',
+                name: 'CustomerContainer.Estimate',
+                component: () => import('@/components/CustomerContainer/Estimate')
+            },
+            {
+                path: 'list',
+                name: 'CustomerContainer.List',
+                component: () => import('@/components/CustomerContainer/List')
+            }
+        ]
+    },
+    {
         path: '/dashboard',
         name: 'dashboard',
         component: () => import('@/components/Dashboard/Layout'),
