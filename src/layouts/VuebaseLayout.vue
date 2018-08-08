@@ -55,143 +55,9 @@
             </v-list>
             <!-- 메뉴 종료 라인 -->
         </v-navigation-drawer>
-
-        <v-toolbar
-                app
-                flat
-                dense
-                color="primary"
-                dark
-        >
-            <v-toolbar-side-icon
-                    @click.stop="drawer = !drawer"
-                    class="hidden-lg-and-up"
-                    :class="searching ? 'hidden-xs-only' : ''"
-            />
-            <v-menu :nudge-width="100" :class="searching ? 'hidden-xs-only' : ''">
-                <v-toolbar-title slot="activator" class="pl-2">
-                    <span>{{ menuItems[0] }}</span>
-                    <v-icon>arrow_drop_down</v-icon>
-                </v-toolbar-title>
-                <v-list>
-                    <v-list-tile v-for="item in menuItems" :key="item" @click="">
-                        <v-list-tile-title v-text="item"></v-list-tile-title>
-                    </v-list-tile>
-                </v-list>
-            </v-menu>
-            <v-spacer></v-spacer>
-
-            <v-btn icon @click.native.stop="searchBegin">
-                <v-icon>search</v-icon>
-            </v-btn>
-            <div :class="{'searching--closed': !searching}" class="searching">
-                <v-text-field
-                        id="search"
-                        v-model="search"
-                        append-icon="close"
-                        :append-icon-cb="searchEnd"
-                        label="Search"
-                        hide-details
-                        single-line
-                        color="white"
-                        @blur="onBlur"
-                />
-            </div>
-
-            <v-tooltip bottom>
-                <v-btn icon @click.stop="rightDrawer = !rightDrawer" slot="activator">
-                    <v-badge color="red" overlap>
-                        <span slot="badge">2</span>
-                        <v-icon>notifications</v-icon>
-                    </v-badge>
-                </v-btn>
-                <span>2 unread notifications</span>
-            </v-tooltip>
-
-            <v-menu
-                    bottom
-                    left
-            >
-                <v-btn icon slot="activator">
-                    <v-avatar class="white" size="32">
-                        <v-icon color="primary">person</v-icon>
-                    </v-avatar>
-                </v-btn>
-                <v-list class="pa-0">
-                    <v-list-tile avatar>
-                        <v-list-tile-avatar>
-                            <v-avatar class="primary" size="48px">
-                                <v-icon dark>person</v-icon>
-                            </v-avatar>
-                        </v-list-tile-avatar>
-                        <v-list-tile-content>
-                            <v-list-tile-title>John Doe</v-list-tile-title>
-                            <v-list-tile-sub-title>Administrator</v-list-tile-sub-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                    <v-divider></v-divider>
-
-                    <v-list-tile key="profile" @click="">
-                        <v-list-tile-action>
-                            <v-icon>person</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>My Profile</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                    <v-divider></v-divider>
-
-                    <v-list-tile key="lock_open" @click="">
-                        <v-list-tile-action>
-                            <v-icon>lock_open</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>Logout</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                </v-list>
-            </v-menu>
-        </v-toolbar>
-
         <v-content>
             <router-view />
         </v-content>
-
-        <v-navigation-drawer
-                temporary
-                :right="right"
-                v-model="rightDrawer"
-                fixed
-                app
-        >
-            <v-toolbar flat prominent dark class="primary">
-                <v-toolbar-title>Notifications</v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-btn icon @click.stop="rightDrawer = false">
-                    <v-icon>close</v-icon>
-                </v-btn>
-            </v-toolbar>
-            <v-list subheader dense>
-                <v-subheader>All notifications</v-subheader>
-                <v-list-tile @click="">
-                    <v-list-tile-action>
-                        <v-icon>person_add</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-title>
-                        12 new users registered
-                    </v-list-tile-title>
-                </v-list-tile>
-                <v-divider></v-divider>
-                <v-list-tile @click="">
-                    <v-list-tile-action>
-                        <v-icon>data_usage</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-title>
-                        DB overloaded 80%
-                    </v-list-tile-title>
-                </v-list-tile>
-            </v-list>
-        </v-navigation-drawer>
     </v-app>
 </template>
 
@@ -209,18 +75,12 @@
                         items: [
                             { title: '주문 목록' },
                             { title: '상품별 주문 목록' },
-                            { title: '반품 내역' },
-                            { title: '견적서 관리' },
-                            { title: '주문 실행' }
+                            { title: '반품 내역' }
                         ]
                     },
                     {
                         title: '매입 관리',
-                        items: [
-                            { title: '별주 관리' },
-                            { title: '매입처 관리' },
-                            { title: '매입처 잔액 관리' }
-                        ]
+                        items: []
                     },
                     {
                         title: '상품 관리',
@@ -235,16 +95,11 @@
                     },
                     {
                         title: '재고 관리',
-                        items: [
-                            { title: '' }
-                        ]
+                        items: []
                     },
                     {
                         title: '거래처 관리',
-                        items: [
-                            { title: '거래처 관리' },
-                            { title: '간편 가입 신청 목록' }
-                        ]
+                        items: []
                     },
                     {
                         title: '브랜드 관리',
