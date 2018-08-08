@@ -42,7 +42,7 @@ const routes = [
         component: () => import('@/components/Dashboard/Layout'),
         children: [
             {
-                path: 'management',
+                path: 'area',
                 name: 'InventoryContainer.AreaManagement',
                 component: () => import('@/components/InventoryContainer/AreaManagement')
             },
@@ -86,9 +86,9 @@ const routes = [
         component: () => import('@/components/Dashboard/Layout'),
         children: [
             {
-                path: 'application-list',
-                name: 'CustomerContainer.ApplicationList',
-                component: () => import('@/components/CustomerContainer/ApplicationList')
+                path: 'applicant-list',
+                name: 'CustomerContainer.ApplicantList',
+                component: () => import('@/components/CustomerContainer/ApplicantList')
             },
             {
                 path: 'approval',
