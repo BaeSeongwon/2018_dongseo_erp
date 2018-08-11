@@ -1,16 +1,17 @@
 <template>
-<v-form v-model="valid" style="position:relative;">
+<div style="position:relative;">
     <v-text-field
-        v-model="name"
-        :rules="nameRules"
-        :counter="10"
-        label="Name"
+        v-model="keyword"
+        :counter="limit"
+        :label="label"
         required
+        v-on:keyup.enter="onSubmit"
+        v-on:keyup.prevent="$emit('input', keyword)"
     />
-    <v-btn icon style="position:absolute; top:-8px; right:-10px;">
+    <v-btn icon style="position:absolute; top:-8px; right:-10px;" @click.prevent="onSubmit">
         <v-icon>search</v-icon>
     </v-btn>
-</v-form>
+</div>
 </template>
 
 
@@ -23,7 +24,13 @@ export default{
     // ========== props ========== //
     props:{
         'label' : {
-            type: String
+            type: String,
+            default(){ return '내용을 입력해 주세요' }
+        },
+
+        'limit' : {
+            type: [Number, null],
+            default(){ return null }
         },
 
         'options': {
@@ -38,7 +45,7 @@ export default{
     data(){
         return {
 
-
+            keyword: '',
 
         }
     }, // ========== data ========== //
@@ -65,6 +72,10 @@ export default{
     
     // ========== data ========== //
     methods:{
+
+        onSubmit(){
+            this.$emit('onSubmit', this.keyword)
+        }
         
     }, // ========== data ========== //
 }
