@@ -29,14 +29,44 @@
     <v-flex xs12 sm6 style="clear:both;">
       <h3>테이블 </h3>
       <detail-table>
-          <tbody slot="contents">
+          <!-- <tbody slot="contents">
             <tr>
               <th>11</th>
               <td>11</td>
             </tr>
-          </tbody>
+          </tbody> -->
       </detail-table>
-      <!-- <table-comp :headers="['id', 'name', 'price']" /> -->
+      <list-table>
+          <thead slot="headers">
+            <tr>
+              <th>No</th>
+              <th>Name</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr v-for="(item, id)  in  tableData" :key="id">
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.price }}</td>
+              </tr>
+          </tbody>
+      </list-table>
+      
+    </v-flex>
+    
+
+    <br>
+    <br>
+    <v-flex xs12 sm6 style="clear:both;">
+      <h3>모달 </h3>
+      
+      <v-dialog v-model="dialog" persistent max-width="50%">
+      <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn>
+      <modal title="Sample Modal">
+      </modal>
+    </v-dialog>
+      
     </v-flex>
 
   </div>
@@ -53,7 +83,9 @@ import {
 
 import { 
   TableComp,
-  DetailTable
+  DetailTable,
+  ListTable,
+  Modal,
 } from '../commons/UIComponents'
 
   export default {
@@ -65,7 +97,9 @@ import {
       ButtonToggle,
       DateRange,
       TableComp,
-      DetailTable
+      DetailTable,
+      ListTable,
+      Modal,
     },
 
     data(){
@@ -80,7 +114,13 @@ import {
           { id: 11, name: 'Prod 02', price: 200000 },
           { id: 12, name: 'Prod 02', price: 200000 },
           { id: 13, name: 'Prod 03', price: 300000 },
-        ]
+        ],
+
+        
+        modal: {
+          test : false,
+        }
+
 
       }
     },
