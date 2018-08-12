@@ -42,10 +42,11 @@
                     <v-list-tile
                         v-for="subItem in item.items"
                         :key="subItem.title"
-                        @click="moveLocation(subItem.link)"
                         >
                         <v-list-tile-content>
-                            <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+                            <v-list-tile-title>
+                                <router-link :to=subItem.link>{{ subItem.title }}</router-link>
+                            </v-list-tile-title>
                         </v-list-tile-content>
                     </v-list-tile>
                 </v-list-group>
@@ -168,7 +169,8 @@
             },
 
             moveLocation (path) {
-                console.log(router)
+                alert(path);
+                this.router.go(path);
             }
         }
     }
@@ -215,5 +217,15 @@
 
     .body-container{
         padding: 20px;
+    }
+
+    .router-link-active{
+        color: blue;
+        text-decoration: none;
+    }
+
+    a{
+        color: white;
+        text-decoration: none;
     }
 </style>
