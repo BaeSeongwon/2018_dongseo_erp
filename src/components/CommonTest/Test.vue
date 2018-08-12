@@ -1,7 +1,8 @@
 <template>
   <div style="padding:15px;">
-    <h1>공통 컴포넌트 테스트 </h1>
-    <hr>
+    <!-- <h1>공통 컴포넌트 테스트 </h1>
+    <hr> -->
+    <page-header />
     
     <br>
     <br>
@@ -98,6 +99,7 @@ import {
 } from '../commons/Form'
 
 import { 
+  PageHeader,
   TableComp,
   DetailTable,
   ListTable,
@@ -109,6 +111,7 @@ import {
 
 
     components: {
+      PageHeader,
       SearchForm,
       ButtonToggle,
       DateRange,
