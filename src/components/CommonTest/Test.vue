@@ -61,12 +61,27 @@
     <v-flex xs12 sm6 style="clear:both;">
       <h3>모달 </h3>
       
-      <v-dialog v-model="dialog" persistent max-width="50%">
-      <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn>
-      <modal title="Sample Modal">
-        
+      
+      <v-btn  dark @click.prevent="modal.test=true">Open modal</v-btn>
+      <modal 
+        title="Sample Modal" 
+        width="35%"
+        :open="modal.test" 
+        @close="modal.test = false" 
+        @confirm="modal.test=false">
+          
+        <p slot="contents">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. <br>
+          Explicabo consequatur cum impedit velit autem perspiciatis qui aut fugit eligendi corporis earum, <br>
+          dolorem nisi vitae aliquam soluta, aperiam ullam animi consequuntur.
+        </p>
+
+        <!-- <div slot="buttons">
+            <v-btn color="green darken-1" flat @click.native="modal.test=false">Close</v-btn>
+            <v-btn color="green darken-1" flat @click.native="modal.test=false">OK</v-btn>
+        </div> -->
       </modal>
-    </v-dialog>
+    
       
     </v-flex>
 
