@@ -64,6 +64,7 @@
       <v-dialog v-model="dialog" persistent max-width="50%">
       <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn>
       <modal title="Sample Modal">
+        
       </modal>
     </v-dialog>
       
