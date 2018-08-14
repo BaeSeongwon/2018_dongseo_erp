@@ -11,6 +11,17 @@
       <search-form label="검색어를 입력해 주세요" :limit="null" @onSubmit="fucc" v-model="searchModel" />
     </v-flex>
     
+
+
+    <br>
+    <br>
+    <v-flex xs12 sm3>
+      <h3>옵션 [값: {{ selectedModel }}]</h3>
+      <select-items :items="['유형1','유형2', '유형3']" v-model="selectedModel" />
+    </v-flex>
+    
+
+
     <br>
     <br>
     <v-flex xs12 sm3>
@@ -18,6 +29,8 @@
       <button-toggle v-model="toggleModel" :list="[ '전체' , '일별' , '주별', '월별' ]" :default="2" />
     </v-flex>
     
+
+
     <br>
     <br>
     <v-flex xs12 sm6>
@@ -25,6 +38,8 @@
       <date-range v-model="dateModel" />
     </v-flex>
     
+
+
     <br>
     <br>
     <v-flex xs12 sm6 style="clear:both;">
@@ -53,7 +68,6 @@
               </tr>
           </tbody>
       </list-table>
-      
     </v-flex>
     
 
@@ -95,7 +109,8 @@
 import { 
   SearchForm, 
   ButtonToggle,
-  DateRange
+  DateRange,
+  SelectItems,
 } from '../commons/Form'
 
 import { 
@@ -115,6 +130,7 @@ import {
       SearchForm,
       ButtonToggle,
       DateRange,
+      SelectItems,
       TableComp,
       DetailTable,
       ListTable,
@@ -127,6 +143,7 @@ import {
         searchModel:0,
         toggleModel:null,
         dateModel:null,
+        selectedModel:null,
 
         tableData: [
           { id: 10, name: 'Prod 01', price: 100000 },
