@@ -1,5 +1,5 @@
 <template>
-<div style="position:relative;">
+<div style="position:relative !important;">
     <v-text-field
         v-model="keyword"
         :counter="limit"
@@ -8,7 +8,7 @@
         v-on:keyup.enter="onSubmit"
         v-on:keyup.prevent="$emit('input', keyword)"
     />
-    <v-btn icon style="position:absolute; top:-8px; right:-10px;" @click.prevent="onSubmit">
+    <v-btn icon style="position:absolute !important; top:-8px !important; right:-10px !important;" @click.prevent="onSubmit">
         <v-icon>search</v-icon>
     </v-btn>
 </div>

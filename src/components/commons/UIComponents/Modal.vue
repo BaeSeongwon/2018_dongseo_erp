@@ -1,24 +1,21 @@
 <template>
-    
+    <v-dialog v-model="open" persistent :max-width="width">
 <v-card>
         <v-card-title class="headline">{{ title }}</v-card-title>
         <v-card-text >
         <slot name="contents">
-            <h1>123</h1>
-            Let Google help apps determine location. <br>
-            This means sending anonymous location data to Google, <br>
-            even when no apps are running.
-            <br><br>
+            <p>진행 하시겠습니까?</p>
         </slot>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-            <slot name="bottom">
-                <v-btn color="green darken-1" flat @click.native="dialog = false">닫기</v-btn>
-                <v-btn color="green darken-1" flat @click.native="dialog = false">확인</v-btn>
+            <slot name="buttons">
+                <v-btn color="green darken-1" flat @click.native="$emit('close', false), dialog=false">닫기</v-btn>
+                <v-btn color="green darken-1" flat @click.native="$emit('confirm', true), dialog=false">확인</v-btn>
             </slot>
         </v-card-actions>
 </v-card>
+</v-dialog>
 
 </template>
 
@@ -31,10 +28,19 @@ export default {
 
     props: {
         
+        'open' : {
+            type: Boolean,
+            default(){ return false }
+        },
 
         'title': {
             type: String, 
-            default(){ return 'Modal title' }
+            default(){ return '알림' }
+        },
+
+        'width' : {
+            type: String,
+            default(){ return '50%' }
         }
 
     },
@@ -42,7 +48,7 @@ export default {
     data(){
         return {
 
-            dialog: false,
+            dialog: true,
 
         }
     }
