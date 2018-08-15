@@ -40,12 +40,15 @@
                         </v-list-tile-content>
                     </v-list-tile>
                     <v-list-tile
-                        v-for="subItem in item.items"
+                        class="submenu-container" 
+                        v-for="subItem in item.subItems"
                         :key="subItem.title"
+                        :class="{ active: subItem.isActive }"
+                        v-on:click="moveLocation(subItem)"
                         >
                         <v-list-tile-content>
                             <v-list-tile-title>
-                                <router-link :to=subItem.link>{{ subItem.title }}</router-link>
+                                {{ subItem.title }}
                             </v-list-tile-title>
                         </v-list-tile-content>
                     </v-list-tile>
@@ -72,66 +75,66 @@
                 items: [
                     {
                         title: '주문 관리',
-                        items: [
-                            { title: '주문 목록', link: '/order/list' },
-                            { title: '상품별 주문 목록', link: '/order/product' },
-                            { title: '반품 내역', link: '/order/return' }
+                        subItems: [
+                            { title: '주문 목록', component: '/order/list', isActive: false },
+                            { title: '상품별 주문 목록', component: '/order/product', isActive: false },
+                            { title: '반품 내역', component: '/order/return', isActive: false }
                         ]
                     },
                     {
                         title: '매입 관리',
-                        items: []
+                        subItems: []
                     },
                     {
                         title: '상품 관리',
-                        items: [
-                            { title: '상품 관리', link: '/product/product' },
-                            { title: '카테고리 설정', link: '/product/category' }
+                        subItems: [
+                            { title: '상품 관리', component: '/product/product', isActive: true },
+                            { title: '카테고리 설정', component: '/product/category', isActive: false }
                         ]
                     },
                     {
                         title: '단가 관리',
-                        items: []
+                        subItems: []
                     },
                     {
                         title: '재고 관리',
-                        items: [
-                            { title: '입/출고 관리', link: '/inventory/srmanagement' },
-                            { title: '입/출고 내역', link: '/inventory/list' },
-                            { title: '재고현황', link: '/inventory/stock' },
-                            { title: '구역관리', link: '/inventory/area' }
+                        subItems: [
+                            { title: '입/출고 관리', component: '/inventory/srmanagement', isActive: false },
+                            { title: '입/출고 내역', component: '/inventory/list', isActive: false },
+                            { title: '재고현황', component: '/inventory/stock', isActive: false },
+                            { title: '구역관리', component: '/inventory/area', isActive: false }
                         ]
                     },
                     {
                         title: '거래처 관리',
-                        items: [
-                            { title: '거래처 목록', link: '/customer/list' },
-                            { title: '거래처 예치금 관리', link: '/customer/credit' },
-                            { title: '결재수단 관리', link: '/customer/approval' },
-                            { title: '외상 잔액 한도 관리', link: '/customer/credit' },
-                            { title: '견적서 관리', link: '/customer/estimate' },
-                            { title: '간편 가입 신청 목록', link: '/customer/applicant-list' }
+                        subItems: [
+                            { title: '거래처 목록', component: '/customer/list', isActive: false },
+                            { title: '거래처 예치금 관리', component: '/customer/credit', isActive: false },
+                            { title: '결재수단 관리', component: '/customer/approval', isActive: false },
+                            { title: '외상 잔액 한도 관리', component: '/customer/credit', isActive: false },
+                            { title: '견적서 관리', component: '/customer/estimate', isActive: false },
+                            { title: '간편 가입 신청 목록', component: '/customer/applicant-list', isActive: false }
                         ]
                     },
                     {
                         title: '브랜드 관리',
-                        items: []
+                        subItems: []
                     },
                     {
                         title: '매출 관리',
-                        items: []
+                        subItems: []
                     },
                     {
                         title: '외상잔액 관리',
-                        items: []
+                        subItems: []
                     },
                     {
                         title: '정산 관리',
-                        items: []
+                        subItems: []
                     },
                     {
                         title: '통계',
-                        items: []
+                        subItems: []
                     }
                 ],
                 miniVariant: false,
@@ -168,9 +171,18 @@
                 document.querySelector('#search').blur()
             },
 
-            moveLocation (path) {
-                alert(path);
-                this.router.go(path);
+            moveLocation (subItem) {
+                this.initSubMenuActive();
+                subItem.isActive = true;
+                this.$router.push(subItem.component);
+            },
+
+            initSubMenuActive () {
+                this.items.forEach((item)=>{
+                    item.subItems.forEach((item)=>{
+                        item.isActive = false;
+                    })
+                })
             }
         }
     }
@@ -219,13 +231,20 @@
         padding: 20px;
     }
 
-    .router-link-active{
-        color: blue;
-        text-decoration: none;
+    .submenu-container{
+        background-color: #212d33;
+        cursor: pointer;
     }
 
-    a{
-        color: white;
-        text-decoration: none;
+    .submenu-item{
+        cursor: pointer;
+    }
+
+    .submenu-container:hover{
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .active{
+        background-color: rgba(255, 255, 255, 0.2);
     }
 </style>
