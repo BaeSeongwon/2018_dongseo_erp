@@ -30,7 +30,23 @@ const routes = [
                 component: () => import('@/components/Dashboard/Logs')
             }
         ]
-    }
+    },
+
+
+
+    
+    { // ===== 브랜드관리 - seongh7800 ===== //
+        path: '/brands',
+        name: 'Brand',
+        component:()=> import('@/components/Dashboard/Layout'),
+        children: [
+            {
+                path: '',
+                name: 'BrandList',
+                component: ()=> import('@/components/BrandContainer/BrandList')
+            }
+        ]
+    },// ===== 브랜드관리 - seongh7800 ===== //
 ]
 
 export default new VueRouter({
