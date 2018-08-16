@@ -44,19 +44,19 @@
                         :key="subItem.title"
                         >
                         <v-list-tile-content>
-                            <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+                            <v-list-tile-title>
+                                <router-link :to=subItem.link>{{ subItem.title }}</router-link>
+                            </v-list-tile-title>
                         </v-list-tile-content>
-
-                        <v-list-tile-action>
-                            <v-icon>{{ subItem.action }}</v-icon>
-                        </v-list-tile-action>
                     </v-list-tile>
                 </v-list-group>
             </v-list>
             <!-- 메뉴 종료 라인 -->
         </v-navigation-drawer>
         <v-content>
-            <router-view />
+            <div class='body-container'>
+                <router-view />
+            </div>
         </v-content>
     </v-app>
 </template>
@@ -73,9 +73,9 @@
                     {
                         title: '주문 관리',
                         items: [
-                            { title: '주문 목록' },
-                            { title: '상품별 주문 목록' },
-                            { title: '반품 내역' }
+                            { title: '주문 목록', link: '/order/list' },
+                            { title: '상품별 주문 목록', link: '/order/product' },
+                            { title: '반품 내역', link: '/order/return' }
                         ]
                     },
                     {
@@ -85,8 +85,8 @@
                     {
                         title: '상품 관리',
                         items: [
-                            { title: '상품 관리' },
-                            { title: '카테고리 설정' }
+                            { title: '상품 관리', link: '/product/product' },
+                            { title: '카테고리 설정', link: '/product/category' }
                         ]
                     },
                     {
@@ -95,11 +95,23 @@
                     },
                     {
                         title: '재고 관리',
-                        items: []
+                        items: [
+                            { title: '입/출고 관리', link: '/inventory/srmanagement' },
+                            { title: '입/출고 내역', link: '/inventory/list' },
+                            { title: '재고현황', link: '/inventory/stock' },
+                            { title: '구역관리', link: '/inventory/area' }
+                        ]
                     },
                     {
                         title: '거래처 관리',
-                        items: []
+                        items: [
+                            { title: '거래처 목록', link: '/customer/list' },
+                            { title: '거래처 예치금 관리', link: '/customer/credit' },
+                            { title: '결재수단 관리', link: '/customer/approval' },
+                            { title: '외상 잔액 한도 관리', link: '/customer/credit' },
+                            { title: '견적서 관리', link: '/customer/estimate' },
+                            { title: '간편 가입 신청 목록', link: '/customer/applicant-list' }
+                        ]
                     },
                     {
                         title: '브랜드 관리',
@@ -154,6 +166,11 @@
                 this.searching = false
                 this.search = ''
                 document.querySelector('#search').blur()
+            },
+
+            moveLocation (path) {
+                alert(path);
+                this.router.go(path);
             }
         }
     }
@@ -196,5 +213,19 @@
 
     .list-border-bottom {
         border-bottom: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    .body-container{
+        padding: 20px;
+    }
+
+    .router-link-active{
+        color: blue;
+        text-decoration: none;
+    }
+
+    a{
+        color: white;
+        text-decoration: none;
     }
 </style>

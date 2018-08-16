@@ -10,12 +10,19 @@
               slot="activator"
               dark
               icon
+<<<<<<< HEAD
               v-bind:style="{'opacity':(!options)? 0 : 1}"
+=======
+>>>>>>> brand
             >
               <v-icon style="color:#333;">more_vert</v-icon>
             </v-btn>
 
+<<<<<<< HEAD
             <v-list v-if="options">
+=======
+            <v-list>
+>>>>>>> brand
               <v-list-tile
                 v-for="(item, i) in items"
                 :key="i"
