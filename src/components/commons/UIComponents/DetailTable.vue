@@ -3,7 +3,7 @@
 
     <table class="elevation-1 detail-table" >
         <colgroup>
-            <col width="20%">
+            <col width="15%">
         </colgroup>
         <slot name="contents">
             <tr>

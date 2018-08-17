@@ -21,3 +21,23 @@
         }
     }
 </script>
+
+
+<style>
+.cardbox{
+    border:1px solid #e8e8e8; 
+    padding:15px; 
+    background:#fff; 
+    border-radius:3px 3px; 
+    box-shadow:1px 1px 1px 1px rgba(0,0,0,.08);
+}
+    .cardbox-header{
+        margin-bottom:0;
+        border-radius: 5px 5px 0 0;
+    }
+    .cardbox-body{
+        margin-top:0;
+        border-top:none;
+        border-radius: 0 0 5px 5px;
+    }
+</style>

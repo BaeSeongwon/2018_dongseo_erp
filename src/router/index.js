@@ -149,11 +149,23 @@ const routes = [
         name: 'Brand',
         component:()=> import('@/components/Dashboard/Layout'),
         children: [
-            {
+            { // === 목록 ==== //
                 path: '',
                 name: 'BrandList',
                 component: ()=> import('@/components/BrandContainer/BrandList')
-            }
+            },
+            
+            { // === 입점요청 ==== //
+                path: 'applicant',
+                name: 'BrandApplicant',
+                component: ()=> import('@/components/BrandContainer/BrandApplicant')
+            },
+
+            { // === 상세 ==== //
+                path: ':brand_id',
+                name: 'BrandDetail',
+                component: ()=> import('@/components/BrandContainer/BrandDetail')
+            },
         ]
     },// ===== 브랜드관리 - seongh7800 ===== //
 ]
