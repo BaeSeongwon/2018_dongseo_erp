@@ -173,22 +173,24 @@
             },
 
             moveLocation (subItem) {
-                this.initSubMenuActive();
+                this.subItemArray.forEach((item)=>{
+                    item.isActive = false;
+                });
                 subItem.isActive = true;
                 this.$router.push(subItem.component);
             },
 
-            initSubMenuActive () {
+            createSubArray () {
                 this.items.forEach((item)=>{
                     item.subItems.forEach((item)=>{
-                        item.isActive = false;
-                    })
-                })
+                        this.subItemArray.push(item);
+                    });
+                });
             }
         },
 
         created: function(){
-            createSubArray();
+            this.createSubArray();
         }
     }
 </script>
@@ -228,5 +230,13 @@
 
     .body-container{
         padding: 20px;
+    }
+
+    .submenu-container{
+        background-color: #20292d;
+    }
+
+    .active{
+        background-color: rgba(255,255,255,0.1)
     }
 </style>
