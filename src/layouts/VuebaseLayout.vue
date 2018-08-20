@@ -40,12 +40,14 @@
                         </v-list-tile-content>
                     </v-list-tile>
                     <v-list-tile
-                        v-for="subItem in item.items"
+                        class="submenu-container" 
+                        v-for="subItem in item.subItems"
                         :key="subItem.title"
+                        @click="moveLocation(subItem.link)"
                         >
                         <v-list-tile-content>
                             <v-list-tile-title>
-                                <router-link :to=subItem.link>{{ subItem.title }}</router-link>
+                                {{ subItem.title }}
                             </v-list-tile-title>
                         </v-list-tile-content>
                     </v-list-tile>
@@ -80,18 +82,19 @@
                     },
                     {
                         title: '매입 관리',
-                        items: []
+                        subItems: []
                     },
                     {
                         title: '상품 관리',
                         items: [
                             { title: '상품 관리', link: '/product/product' },
                             { title: '카테고리 설정', link: '/product/category' }
+
                         ]
                     },
                     {
                         title: '단가 관리',
-                        items: []
+                        subItems: []
                     },
                     {
                         title: '재고 관리',
@@ -100,6 +103,7 @@
                             { title: '입/출고 내역', link: '/inventory/list' },
                             { title: '재고현황', link: '/inventory/stock' },
                             { title: '구역관리', link: '/inventory/area' }
+
                         ]
                     },
                     {
@@ -115,23 +119,23 @@
                     },
                     {
                         title: '브랜드 관리',
-                        items: []
+                        subItems: []
                     },
                     {
                         title: '매출 관리',
-                        items: []
+                        subItems: []
                     },
                     {
                         title: '외상잔액 관리',
-                        items: []
+                        subItems: []
                     },
                     {
                         title: '정산 관리',
-                        items: []
+                        subItems: []
                     },
                     {
                         title: '통계',
-                        items: []
+                        subItems: []
                     }
                 ],
                 miniVariant: false,
@@ -169,27 +173,17 @@
             },
 
             moveLocation (path) {
-                alert(path);
-                this.router.go(path);
+                console.log(router)
             }
         }
     }
 </script>
 
-<style scoped lang="stylus">
-    @import '../../node_modules/vuetify/src/stylus/settings/_variables.styl'
-
+<style scoped>
     .bottom-menu {
         position: absolute;
         width: 100%;
         bottom: 0;
-    }
-
-    .searching {
-        overflow: hidden;
-        width: 208px;
-        padding-left: 8px;
-        transition: $primary-transition;
     }
 
     .searching--closed {
@@ -205,27 +199,11 @@
         display: none;
     }
 
-    .hidden-searching {
-        @media $display-breakpoints.sm-and-down {
-            display: none !important;
-        }
-    }
-
     .list-border-bottom {
         border-bottom: 1px solid rgba(255, 255, 255, .12);
     }
 
     .body-container{
         padding: 20px;
-    }
-
-    .router-link-active{
-        color: blue;
-        text-decoration: none;
-    }
-
-    a{
-        color: white;
-        text-decoration: none;
     }
 </style>

@@ -1,13 +1,5 @@
 <template>
   <div>
-    <div class="header-container">
-      <div>
-          <h2>주문 목록</h2>
-      </div>
-      <div>
-          홈 / 주문목록
-      </div>
-    </div>
     <div>
       <detail-table>
         <tbody slot="contents">
@@ -57,6 +49,18 @@
         </tbody>
       </detail-table>
     </div>
+    <!-- 중간 버튼라인 -->
+    <div class="middle-container">
+      <div></div>
+      <hr>
+      <div></div>
+    </div>
+    <div class="main-table-container">
+
+    </div>
+    <div class="paging-container">
+
+    </div>
   </div>
 </template>
 <script>
@@ -87,22 +91,18 @@
         periodDivision: ['주문 일시', '배송 요청일'],
         period: ['전체','전일','당일','한달']
       }
+    },
+    methods: {
+      sendComponentInfo(){
+        this.$emit('getComponent','주문 목록');
+      }
+    },
+    mounted(){
+      this.sendComponentInfo();
     }
   }
 </script>
 <style scoped>
-  .header-container {
-      height: 40px;
-  }
-
-  .header-container div:nth-child(1){
-      float: left;
-  }
-
-  .header-container div:nth-child(2){
-      float: right;
-  }
-
   .period-row-container{
     float: left;
   }
@@ -110,5 +110,44 @@
   .date-container{
     margin-bottom: 5px;
     margin-left: 10px;
+  }
+
+  hr{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .middle-container{
+    width: 100%;
+    height: 200px;
+    border: 1px solid red;
+    margin-top: 50px;
+    padding: 10px;
+  }
+
+  .middle-container div:nth-child(1){
+    width: 100%;
+    height: 80px;
+    border: 1px solid brown;
+  }
+
+  .middle-container div:nth-child(3){
+    width: 100%;
+    height: 80px;
+    border: 1px solid blueviolet;
+  }
+
+  .main-table-container{
+    width: 100%;
+    height: 350px;
+    border: 1px solid crimson;
+    padding: 10px;
+    margin-top: 10px;
+  }
+
+  .paging-container{
+    width: 100%;
+    height: 80px;
+    border: 1px solid yellow;
   }
 </style>

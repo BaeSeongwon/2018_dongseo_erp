@@ -1,6 +1,15 @@
 <template>
     <div>
-        <router-view />                   
+        <div class="header-container">
+            <div>
+                <h2>{{title}}</h2>
+            </div>
+            <div>
+                홈 / {{title}}
+            </div>
+        </div>
+        <router-view 
+            v-on:getComponent="getComponentInfo"/>                   
     </div>
 </template>
 
@@ -8,6 +17,12 @@
     export default {
         data(){
             return {
+                title: ''
+            }
+        },
+        methods:{
+            getComponentInfo(data){
+                this.title = data;
             }
         },
         mounted: function(){
@@ -17,5 +32,15 @@
 </script>
 
 <style scoped>
-   
+   .header-container {
+      height: 40px;
+  }
+
+  .header-container div:nth-child(1){
+      float: left;
+  }
+
+  .header-container div:nth-child(2){
+      float: right;
+  }
 </style>
