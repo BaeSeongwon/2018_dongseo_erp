@@ -81,43 +81,83 @@ const routes = [
             }
         ]
     },
-    {
-        path: '/customer',
+
+
+
+    
+    { // ===== 거래처관리 ===== //
+
+        path: '/customers',
         name: 'CustomerContainer',
         component: () => import('@/components/Dashboard/Layout'),
         children: [
-            {
-                path: 'applicant-list',
-                name: 'CustomerContainer.ApplicantList',
-                component: () => import('@/components/CustomerContainer/ApplicantList')
+
+            { // === 거래처목록 === //
+                path: '',
+                name: 'CustomerContainer.List',
+                component: () => import('@/components/CustomerContainer/List')
             },
-            {
+                { // === 거래처상세 === //
+                    path: 'detail/:customer_id',
+                    name: 'CustomerContainer.CustomerDetail',
+                    component: () => import('@/components/CustomerContainer/CustomerDetail')
+                },
+                { // === 거래처등록 === //
+                    path: 'insert',
+                    name: 'CustomerContainer.CustomerDetail',
+                    component: () => import('@/components/CustomerContainer/CustomerInsert')
+                },
+            
+            
+            { // === 할인/할증목록 === //
+                path: 'sale',
+                name: 'CustomerContainer.SaleList',
+                component: () => import('@/components/CustomerContainer/SaleList')
+            },
+
+
+            { // === 거래처 예치금관리 === //
+                path: 'deposit',
+                name: 'CustomerContainer.DepositList',
+                component: () => import('@/components/CustomerContainer/DepositList')
+            },
+                { // === 예치금상세 === //
+                    path: 'deposit/detail/:deposit_id',
+                    name: 'CustomerContainer.DepositDetail',
+                    component: () => import('@/components/CustomerContainer/DepositDetail')
+                },
+
+
+            { // === 결제수단 관리 === //
                 path: 'approval',
                 name: 'CustomerContainer.ApprovalMethod',
                 component: () => import('@/components/CustomerContainer/ApprovalMethod')
             },
-            {
+
+            { // === 외상한도 잔액관리 === //
                 path: 'credit',
                 name: 'CustomerContainer.Credit',
                 component: () => import('@/components/CustomerContainer/Credit')
             },
-            {
-                path: 'deposit',
-                name: 'CustomerContainer.deposit',
-                component: () => import('@/components/CustomerContainer/deposit')
-            },
-            {
+
+            { // === 견적서 관리 === //
                 path: 'estimate',
                 name: 'CustomerContainer.Estimate',
                 component: () => import('@/components/CustomerContainer/Estimate')
             },
-            {
-                path: 'list',
-                name: 'CustomerContainer.List',
-                component: () => import('@/components/CustomerContainer/List')
-            }
+
+            { // === 가입신청목록 === //
+                path: 'applicant',
+                name: 'CustomerContainer.ApplicantList',
+                component: () => import('@/components/CustomerContainer/ApplicantList')
+            },  
+
         ]
-    },
+
+    }, // ===== 거래처관리 ===== //
+
+
+
     {
         path: '/dashboard',
         name: 'dashboard',
@@ -168,6 +208,12 @@ const routes = [
             },
         ]
     },// ===== 브랜드관리 - seongh7800 ===== //
+
+
+
+
+
+
 ]
 
 export default new VueRouter({

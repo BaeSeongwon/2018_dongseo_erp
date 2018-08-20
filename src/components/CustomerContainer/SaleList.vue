@@ -2,93 +2,21 @@
 <v-container style=" ">
 
     <!-- ========== 헤더 ========== -->
-    <page-header title="거래처 관리" />
+    <page-header title="할인/할증 등급 관리" />
     <br>
 
-    <div class="cardbox cardbox-header" >
-        <h3>검색</h3>
-    </div>
-    <div class="cardbox cardbox-body" >
-      <v-flex sm12>
-        <table width="100%">
-          <colgroup>
-            <col width="13.5%">
-            <col width="1%">
-            <col width="20%">
-            <col width="1%">
-            <col width="41%">
-          </colgroup>
-          <tr>
-            <th><h3>키워드검색</h3></th>
-            <td></td>
-            <td>
-              <v-select
-                :items="['전체', '거래처명', '브랜드명']"
-                label="분류"
-              ></v-select>
-            </td>
-            <td></td>
-            <td>
-              <search-form label="이름을 입력해 주세요" />
-            </td>
-            <td></td>
-          </tr>
-        </table>
-        <table width="100%">
-          <colgroup>
-            <col width="13.5%">
-            <col width="1%">
-            <col width="20%">
-            <col width="1%">
-            <col width="20%">
-            <col width="1%">
-            <col width="20%">
-          </colgroup>
-          <tr>
-            <th><h3>즉시검색</h3></th>
-            <td></td>
-            <td>
-              <v-select
-                :items="['전체', '거래처명', '브랜드명']"
-                label="배송유형"
-              ></v-select>
-            </td>
-            <td></td>
-            <td>
-              <v-select
-                :items="['전체', '거래처명', '브랜드명']"
-                label="담당자"
-              ></v-select>
-            </td>
-            <td></td>
-            <td>
-              <v-select
-                :items="['전체', '거래처명', '브랜드명']"
-                label="담당자"
-              ></v-select>
-            </td>
-            <td></td>
-          </tr>
-        </table>
-      </v-flex>
-      
-    </div>
-<br>
-
+   
 
 
   <div class="cardbox cardbox-header" style="padding-top:5px; padding-bottom:5px;">
 
     <table width="100%">
       <colgroup>
-        <col width="50%">
+        <col width="83%">
       </colgroup>
       <tr>
-        <td style="text-align:left;"><h3>거래처목록</h3></td>
-        <td><v-btn depressed outline style="width:97%;" @click.prevent="$router.push('/customers/sale')">할인/할증 관리</v-btn></td>
-        <td><v-btn depressed outline style="width:97%;">삭제</v-btn></td>
-        <td><v-btn depressed outline style="width:97%;" @click.prevent="modal.customerEdit=true">일괄수정</v-btn></td>
-        <td><v-btn depressed style="width:97%;" color="success" @click.prevent="$router.push('/customers/insert')">거래처 등록</v-btn></td>
+        <td style="text-align:left;"><h4>전체 {{desserts.length}}건</h4></td>
+        <td><v-btn depressed style="width:97%;" color="success" @click.prevent="modal.addSale=true">할인/할증 등록</v-btn></td>
       </tr>
     </table>
               
@@ -108,27 +36,27 @@
                 >
                 
                     <template slot="items" slot-scope="props" >
-                        <tr @click="$router.push('/customers/detail/'+props.item.id)">
-                        <td>{{ props.item.name }}</td>
-                        <td class="text-xs-right">{{ props.item.calories }}</td>
-                        <td class="text-xs-right">{{ props.item.fat }}</td>
-                        <td class="text-xs-right">{{ props.item.carbs }}</td>
-                        <td class="text-xs-right">{{ props.item.protein }}</td>
-                        <td class="justify-center layout px-0">
-                        <v-icon
-                            small
-                            class="mr-2"
-                            @click="editItem(props.item)"
-                        >
-                            edit
-                        </v-icon>
-                        <v-icon
-                            small
-                            @click="deleteItem(props.item)"
-                        >
-                            delete
-                        </v-icon>
-                        </td>
+                        <tr>
+                            <td>{{ props.item.name }}</td>
+                            <td class="text-xs-right">{{ props.item.calories }}</td>
+                            <td class="text-xs-right">{{ props.item.fat }}</td>
+                            <td class="text-xs-right">{{ props.item.carbs }}</td>
+                            <td class="text-xs-right">{{ props.item.protein }}</td>
+                            <td class="justify-center layout px-0">
+                            <v-icon
+                                small
+                                class="mr-2"
+                                @click="editItem(props.item)"
+                            >
+                                edit
+                            </v-icon>
+                            <v-icon
+                                small
+                                @click="deleteItem(props.item)"
+                            >
+                                delete
+                            </v-icon>
+                            </td>
                         </tr>
                     </template>
                 </v-data-table>
@@ -144,18 +72,13 @@
     
 
 
-
-
-
-
-
 <!-- ===== 등록모달 ===== -->
 <modal 
     title="Sample Modal" 
     width="35%"
-    :open="modal.customerEdit" 
-    @close="modal.customerEdit = false" 
-    @confirm="modal.customerEdit=false">
+    :open="modal.addSale" 
+    @close="modal.addSale = false" 
+    @confirm="modal.addSale=false">
         
     <p slot="contents">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. <br>
@@ -164,11 +87,10 @@
     </p>
 
     <!-- <div slot="buttons">
-        <v-btn color="green darken-1" flat @click.native="modal.customerEdit=false">Close</v-btn>
-        <v-btn color="green darken-1" flat @click.native="modal.customerEdit=false">OK</v-btn>
+        <v-btn color="green darken-1" flat @click.native="modal.addSale=false">Close</v-btn>
+        <v-btn color="green darken-1" flat @click.native="modal.addSale=false">OK</v-btn>
     </div> -->
 </modal>
-
 
 
 </v-container>
@@ -211,8 +133,8 @@ export default{
     // ========== data ========== //
     data() {
         return {
-            modal:{
-                customerEdit : false
+            modal: {
+                addSale : false,
             },
 
             tableData: [

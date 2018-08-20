@@ -2,7 +2,7 @@
 <v-container style=" ">
 
     <!-- ========== 헤더 ========== -->
-    <page-header title="거래처 관리" />
+    <page-header title="예치금 관리" />
     <br>
 
     <div class="cardbox cardbox-header" >
@@ -108,7 +108,7 @@
                 >
                 
                     <template slot="items" slot-scope="props" >
-                        <tr @click="$router.push('/customers/detail/'+props.item.id)">
+                        <tr @click="$router.push('/customers/deposit/detail/'+props.item.id)">
                         <td>{{ props.item.name }}</td>
                         <td class="text-xs-right">{{ props.item.calories }}</td>
                         <td class="text-xs-right">{{ props.item.fat }}</td>
