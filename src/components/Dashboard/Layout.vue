@@ -1,13 +1,5 @@
 <template>
     <div>
-        <div class="header-container">
-            <div>
-                <h2>{{title}}</h2>
-            </div>
-            <div>
-                홈 / {{title}}
-            </div>
-        </div>
         <router-view 
             v-on:getComponent="getComponentInfo"/>                   
     </div>
