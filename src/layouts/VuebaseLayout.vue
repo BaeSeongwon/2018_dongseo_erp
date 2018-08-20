@@ -43,8 +43,7 @@
                         class="submenu-container" 
                         v-for="subItem in item.subItems"
                         :key="subItem.title"
-                        :class="{ active: subItem.isActive }"
-                        v-on:click="moveLocation(subItem)"
+                        @click="moveLocation(subItem.link)"
                         >
                         <v-list-tile-content>
                             <v-list-tile-title>
@@ -75,10 +74,10 @@
                 items: [
                     {
                         title: '주문 관리',
-                        subItems: [
-                            { title: '주문 목록', component: '/order/list', isActive: false },
-                            { title: '상품별 주문 목록', component: '/order/product', isActive: false },
-                            { title: '반품 내역', component: '/order/return', isActive: false }
+                        items: [
+                            { title: '주문 목록', link: '/order/list' },
+                            { title: '상품별 주문 목록', link: '/order/product' },
+                            { title: '반품 내역', link: '/order/return' }
                         ]
                     },
                     {
@@ -87,9 +86,10 @@
                     },
                     {
                         title: '상품 관리',
-                        subItems: [
-                            { title: '상품 관리', component: '/product/product', isActive: true },
-                            { title: '카테고리 설정', component: '/product/category', isActive: false }
+                        items: [
+                            { title: '상품 관리', link: '/product/product' },
+                            { title: '카테고리 설정', link: '/product/category' }
+
                         ]
                     },
                     {
@@ -98,22 +98,23 @@
                     },
                     {
                         title: '재고 관리',
-                        subItems: [
-                            { title: '입/출고 관리', component: '/inventory/srmanagement', isActive: false },
-                            { title: '입/출고 내역', component: '/inventory/list', isActive: false },
-                            { title: '재고현황', component: '/inventory/stock', isActive: false },
-                            { title: '구역관리', component: '/inventory/area', isActive: false }
+                        items: [
+                            { title: '입/출고 관리', link: '/inventory/srmanagement' },
+                            { title: '입/출고 내역', link: '/inventory/list' },
+                            { title: '재고현황', link: '/inventory/stock' },
+                            { title: '구역관리', link: '/inventory/area' }
+
                         ]
                     },
                     {
                         title: '거래처 관리',
-                        subItems: [
-                            { title: '거래처 목록', component: '/customer/list', isActive: false },
-                            { title: '거래처 예치금 관리', component: '/customer/credit', isActive: false },
-                            { title: '결재수단 관리', component: '/customer/approval', isActive: false },
-                            { title: '외상 잔액 한도 관리', component: '/customer/credit', isActive: false },
-                            { title: '견적서 관리', component: '/customer/estimate', isActive: false },
-                            { title: '간편 가입 신청 목록', component: '/customer/applicant-list', isActive: false }
+                        items: [
+                            { title: '거래처 목록', link: '/customer/list' },
+                            { title: '거래처 예치금 관리', link: '/customer/credit' },
+                            { title: '결재수단 관리', link: '/customer/approval' },
+                            { title: '외상 잔액 한도 관리', link: '/customer/credit' },
+                            { title: '견적서 관리', link: '/customer/estimate' },
+                            { title: '간편 가입 신청 목록', link: '/customer/applicant-list' }
                         ]
                     },
                     {
@@ -171,37 +172,18 @@
                 document.querySelector('#search').blur()
             },
 
-            moveLocation (subItem) {
-                this.initSubMenuActive();
-                subItem.isActive = true;
-                this.$router.push(subItem.component);
-            },
-
-            initSubMenuActive () {
-                this.items.forEach((item)=>{
-                    item.subItems.forEach((item)=>{
-                        item.isActive = false;
-                    })
-                })
+            moveLocation (path) {
+                console.log(router)
             }
         }
     }
 </script>
 
-<style scoped lang="stylus">
-    @import '../../node_modules/vuetify/src/stylus/settings/_variables.styl'
-
+<style scoped>
     .bottom-menu {
         position: absolute;
         width: 100%;
         bottom: 0;
-    }
-
-    .searching {
-        overflow: hidden;
-        width: 208px;
-        padding-left: 8px;
-        transition: $primary-transition;
     }
 
     .searching--closed {
@@ -217,34 +199,11 @@
         display: none;
     }
 
-    .hidden-searching {
-        @media $display-breakpoints.sm-and-down {
-            display: none !important;
-        }
-    }
-
     .list-border-bottom {
         border-bottom: 1px solid rgba(255, 255, 255, .12);
     }
 
     .body-container{
         padding: 20px;
-    }
-
-    .submenu-container{
-        background-color: #212d33;
-        cursor: pointer;
-    }
-
-    .submenu-item{
-        cursor: pointer;
-    }
-
-    .submenu-container:hover{
-        background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .active{
-        background-color: rgba(255, 255, 255, 0.2);
     }
 </style>
