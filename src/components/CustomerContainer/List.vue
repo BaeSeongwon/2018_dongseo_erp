@@ -408,6 +408,7 @@ export default{
     
     // ========== created ========== //
     created() {
+        console.log(this.$models.orders[2]);
         setTimeout(()=>{
             this.$set(this, 'loading', false)
         }, 780)

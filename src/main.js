@@ -6,9 +6,14 @@ import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
+import models from './models'
+
+
+
 Vue.use(Vuetify)
 
 Vue.config.productionTip = false
+Vue.prototype.$models = models
 
 /* eslint-disable no-new */
 new Vue({
