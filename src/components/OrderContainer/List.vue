@@ -31,7 +31,7 @@
                   </v-layout>                  
                 </v-radio-group>
               </td>
-              <td rowspan="3" style="width: 20%; text-align:left;">
+              <td rowspan="3" style="width: 30%; text-align:left;">
                 <v-btn small>검색</v-btn>
               </td>
             </tr>
@@ -120,16 +120,16 @@
       <v-flex xs6>
         <v-layout>
           <v-flex xs3 style="text-align:left">
-            <v-btn>거래명세표 출력</v-btn>
+            <v-btn outline color="black"><v-icon small light>fas fa-print</v-icon>&nbsp;거래명세표 출력</v-btn>
           </v-flex>
           <v-flex xs9 style="text-align:left">
-            <v-btn>거래명세표 출력</v-btn>
+            <v-btn outline color="black"><v-icon small light>fas fa-print</v-icon>&nbsp;거래명세표 출력</v-btn>
           </v-flex>
         </v-layout>
       </v-flex>
       <v-flex xs6>
         <v-flex style="text-align:right">
-          <v-btn>신규주문 등록</v-btn>
+          <v-btn outline color="indigo"><v-icon small>far fa-file-alt</v-icon>&nbsp;신규주문 등록</v-btn>
         </v-flex>
       </v-flex>
     </v-layout>
@@ -144,8 +144,8 @@
       </v-flex>
       <v-flex xs6 style="text-align:right">
         <span>* 전일~당일까지의 주문내역이 기본으로 노출됩니다.</span>
-        <v-btn>택배원장</v-btn>
-        <v-btn>주문내역</v-btn>
+        <v-btn><v-icon>fas fa-file-download</v-icon>&nbsp;택배원장</v-btn>
+        <v-btn><v-icon>fas fa-file-download</v-icon>&nbsp;주문내역</v-btn>
       </v-flex>
     </v-layout>
   </v-container>
