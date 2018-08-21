@@ -5,6 +5,34 @@
     <page-header title="결제수단 관리" />
     <br>
 
+
+
+    <!-- ========== 로딩 ========== -->
+    <v-layout row v-if="loading">
+        <v-flex xs12 md12  style="text-align:center;">
+            <br>
+            <v-progress-circular
+                :value="80"
+                :width="2"
+                :size="50"
+                color="deep-orange lighten-2"
+                indeterminate
+                style="width:200px !important;"
+            ></v-progress-circular>
+                <br>
+                <br>
+                <br>
+        </v-flex>
+    </v-layout>
+    <!-- ========== 로딩 ========== -->
+
+
+    <!-- ========== 컨텐츠 ========== -->
+    <div v-else>
+    
+
+
+
     <div class="cardbox cardbox-header" >
         <h3>검색</h3>
     </div>
@@ -85,7 +113,7 @@
       </colgroup>
       <tr>
         <td style="text-align:left;"><h3>거래처목록</h3></td>
-        <td><v-btn depressed outline style="width:97%;" @click.prevent="$router.push('/customers/sale')">할인/할증 관리</v-btn></td>
+        <td><v-btn depressed outline style="width:97%;" @click.prevent="$router.push('/customers/approval/sale')">할인/할증 관리</v-btn></td>
         <td><v-btn depressed outline style="width:97%;">삭제</v-btn></td>
         <td><v-btn depressed outline style="width:97%;" @click.prevent="modal.customerEdit=true">일괄수정</v-btn></td>
         <td><v-btn depressed style="width:97%;" color="success" @click.prevent="$router.push('/customers/insert')">거래처 등록</v-btn></td>
@@ -142,6 +170,11 @@
         </v-layout>
     </v-container>
     
+
+
+
+    </div>
+    <!-- ========== 컨텐츠 ========== -->
 
 
 
@@ -214,6 +247,7 @@ export default{
             modal:{
                 customerEdit : false
             },
+            loading:true,
 
             tableData: [
                 { id: 10, name: 'Prod 01', price: 100000 },
@@ -353,8 +387,10 @@ export default{
     
     
     // ========== created ========== //
-    created() {
-        
+    created() {   
+        setTimeout(()=>{
+            this.$set(this, 'loading', false)
+        }, 780)
     },
     
     

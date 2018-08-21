@@ -105,12 +105,13 @@
                     {
                         title: '거래처 관리',
                         items: [
-                            { title: '거래처 목록', link: '/customer/list' },
-                            { title: '거래처 예치금 관리', link: '/customer/credit' },
-                            { title: '결재수단 관리', link: '/customer/approval' },
-                            { title: '외상 잔액 한도 관리', link: '/customer/credit' },
-                            { title: '견적서 관리', link: '/customer/estimate' },
-                            { title: '간편 가입 신청 목록', link: '/customer/applicant-list' }
+                            { title: '거래처 목록', link: '/customers/list' },
+                            // { title: '할인/할증목록', link: '/customers/sale' },
+                            { title: '거래처 예치금관리', link: '/customers/deposit' },
+                            { title: '결제수단 관리', link: '/customers/approval' },
+                            { title: '외상한도 잔액관리', link: '/customers/credit' },
+                            { title: '견적서 관리', link: '/customers/estimate' },
+                            { title: '간편가입 신청 목록', link: '/customers/applicant' }
                         ]
                     },
                     {
@@ -227,5 +228,11 @@
     a{
         color: white;
         text-decoration: none;
+    }
+
+    .router-link-active{
+        color:#fff;
+        font-weight : bold;
+        text-decoration : underline;
     }
 </style>

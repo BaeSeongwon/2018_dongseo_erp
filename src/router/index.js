@@ -93,12 +93,12 @@ const routes = [
         children: [
 
             { // === 거래처목록 === //
-                path: '',
+                path: 'list',
                 name: 'CustomerContainer.List',
                 component: () => import('@/components/CustomerContainer/List')
             },
                 { // === 거래처상세 === //
-                    path: 'detail/:customer_id',
+                    path: 'list/detail/:customer_id',
                     name: 'CustomerContainer.CustomerDetail',
                     component: () => import('@/components/CustomerContainer/CustomerDetail')
                 },
@@ -110,7 +110,7 @@ const routes = [
             
             
             { // === 할인/할증목록 === //
-                path: 'sale',
+                path: 'approval/sale',
                 name: 'CustomerContainer.SaleList',
                 component: () => import('@/components/CustomerContainer/SaleList')
             },
@@ -142,9 +142,14 @@ const routes = [
 
             { // === 견적서 관리 === //
                 path: 'estimate',
-                name: 'CustomerContainer.Estimate',
-                component: () => import('@/components/CustomerContainer/Estimate')
+                name: 'CustomerContainer.EstimateList',
+                component: () => import('@/components/CustomerContainer/EstimateList')
             },
+                { // === 견적서 상세 === //
+                    path: 'estimate/detail/:est_id',
+                    name: 'CustomerContainer.EstimateDetail',
+                    component: () => import('@/components/CustomerContainer/EstimateDetail')
+                },
 
             { // === 가입신청목록 === //
                 path: 'applicant',
