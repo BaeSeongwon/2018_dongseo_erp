@@ -2,9 +2,8 @@
 <v-container style=" ">
 
     <!-- ========== 헤더 ========== -->
-    <page-header title="결제수단 관리" />
+    <page-header title="견적서 관리" />
     <br>
-
 
 
     <!-- ========== 로딩 ========== -->
@@ -32,76 +31,75 @@
     
 
 
-
     <div class="cardbox cardbox-header" >
         <h3>검색</h3>
     </div>
     <div class="cardbox cardbox-body" >
-      <v-flex sm12>
-        <table width="100%">
-          <colgroup>
-            <col width="13.5%">
-            <col width="1%">
-            <col width="20%">
-            <col width="1%">
-            <col width="41%">
-          </colgroup>
-          <tr>
-            <th><h3>키워드검색</h3></th>
-            <td></td>
-            <td>
-              <v-select
-                :items="['전체', '거래처명', '브랜드명']"
-                label="분류"
-              ></v-select>
-            </td>
-            <td></td>
-            <td>
-              <search-form label="이름을 입력해 주세요" />
-            </td>
-            <td></td>
-          </tr>
-        </table>
-        <table width="100%">
-          <colgroup>
-            <col width="13.5%">
-            <col width="1%">
-            <col width="20%">
-            <col width="1%">
-            <col width="20%">
-            <col width="1%">
-            <col width="20%">
-          </colgroup>
-          <tr>
-            <th><h3>즉시검색</h3></th>
-            <td></td>
-            <td>
-              <v-select
-                :items="['전체', '거래처명', '브랜드명']"
-                label="배송유형"
-              ></v-select>
-            </td>
-            <td></td>
-            <td>
-              <v-select
-                :items="['전체', '거래처명', '브랜드명']"
-                label="담당자"
-              ></v-select>
-            </td>
-            <td></td>
-            <td>
-              <v-select
-                :items="['전체', '거래처명', '브랜드명']"
-                label="담당자"
-              ></v-select>
-            </td>
-            <td></td>
-          </tr>
-        </table>
-      </v-flex>
+        <v-flex sm12>
+            <table width="100%">
+                <colgroup>
+                    <col width="12%">
+                </colgroup>
+                <tr>
+                    <th><h3>기간</h3></th>
+                    <td >
+                        <button-toggle :list="[ '전체' , '전일' , '당일' , '한달' ]" :default="0" />
+                    </td>
+                    <td>
+                        <date-range  />
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <colgroup>
+                    <col width="12%">
+                    <col width="1%">
+                    <col width="20%">
+                    <col width="1%">
+                    <col width="41%">
+                </colgroup>
+                <tr>
+                    <th><h3>키워드검색</h3></th>
+                    <td></td>
+                    <td>
+                    <v-select
+                        :items="['전체', '거래처명', '브랜드명']"
+                        label="분류"
+                    ></v-select>
+                    </td>
+                    <td></td>
+                    <td>
+                    <search-form label="이름을 입력해 주세요" />
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th><h3>담당자</h3></th>
+                    <td></td>
+                    <td>
+                    <v-select
+                        :items="['David', 'Toress', 'Ronaldo']"
+                        label="담당자"
+                    ></v-select>
+                    </td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+            
+        </v-flex>
       
     </div>
 <br>
+
+
+
+
+
+
+
 
 
 
@@ -109,14 +107,12 @@
 
     <table width="100%">
       <colgroup>
-        <col width="50%">
+        <col width="73%">
       </colgroup>
       <tr>
-        <td style="text-align:left;"><h3>거래처목록</h3></td>
-        <td><v-btn depressed outline style="width:97%;" @click.prevent="$router.push('/customers/approval/sale')">할인/할증 관리</v-btn></td>
-        <td><v-btn depressed outline style="width:97%;">삭제</v-btn></td>
-        <td><v-btn depressed outline style="width:97%;" @click.prevent="modal.customerEdit=true">일괄수정</v-btn></td>
-        <td><v-btn depressed style="width:97%;" color="success" @click.prevent="$router.push('/customers/insert')">거래처 등록</v-btn></td>
+        <td style="text-align:left;"><h4>전체 {{desserts.length}}건</h4></td>
+        <td><v-btn depressed outline small style="width:97%;" >견적서 출력</v-btn></td>
+        <td><v-btn depressed small style="width:97%;" color="success">신규견적서 등록</v-btn></td>
       </tr>
     </table>
               
@@ -136,27 +132,27 @@
                 >
                 
                     <template slot="items" slot-scope="props" >
-                        <tr @click="$router.push('/customers/deposit/detail/'+props.item.id)">
-                        <td>{{ props.item.name }}</td>
-                        <td class="text-xs-right">{{ props.item.calories }}</td>
-                        <td class="text-xs-right">{{ props.item.fat }}</td>
-                        <td class="text-xs-right">{{ props.item.carbs }}</td>
-                        <td class="text-xs-right">{{ props.item.protein }}</td>
-                        <td class="justify-center layout px-0">
-                        <v-icon
-                            small
-                            class="mr-2"
-                            @click="editItem(props.item)"
-                        >
-                            edit
-                        </v-icon>
-                        <v-icon
-                            small
-                            @click="deleteItem(props.item)"
-                        >
-                            delete
-                        </v-icon>
-                        </td>
+                        <tr @click="$router.push('/customers/estimate/detail/'+props.item.id)">
+                            <td>{{ props.item.name }}</td>
+                            <td class="text-xs-right">{{ props.item.calories }}</td>
+                            <td class="text-xs-right">{{ props.item.fat }}</td>
+                            <td class="text-xs-right">{{ props.item.carbs }}</td>
+                            <td class="text-xs-right">{{ props.item.protein }}</td>
+                            <td class="justify-center layout px-0">
+                                <v-icon
+                                    small
+                                    class="mr-2"
+                                    @click="editItem(props.item)"
+                                >
+                                    edit
+                                </v-icon>
+                                <v-icon
+                                    small
+                                    @click="deleteItem(props.item)"
+                                >
+                                    delete
+                                </v-icon>
+                            </td>
                         </tr>
                     </template>
                 </v-data-table>
@@ -172,12 +168,8 @@
     
 
 
-
     </div>
     <!-- ========== 컨텐츠 ========== -->
-
-
-
 
 
 
@@ -236,6 +228,7 @@ export default{
         PageHeader,
         ListTable,
         Modal,
+        DateRange,
     },
     
     
@@ -387,7 +380,7 @@ export default{
     
     
     // ========== created ========== //
-    created() {   
+    created() {
         setTimeout(()=>{
             this.$set(this, 'loading', false)
         }, 780)

@@ -109,12 +109,13 @@
                     {
                         title: '거래처 관리',
                         subItems: [
-                            { title: '거래처 목록', component: '/customer/list', isActive: false },
-                            { title: '거래처 예치금 관리', component: '/customer/credit', isActive: false },
-                            { title: '결재수단 관리', component: '/customer/approval', isActive: false },
-                            { title: '외상 잔액 한도 관리', component: '/customer/credit', isActive: false },
-                            { title: '견적서 관리', component: '/customer/estimate', isActive: false },
-                            { title: '간편 가입 신청 목록', component: '/customer/applicant-list', isActive: false }
+                            { title: '거래처 목록', component: '/customers/list' , isActive: false },
+                            // { title: '할인/할증목록', component: '/customers/sale' , isActive: false },
+                            { title: '거래처 예치금관리', component: '/customers/deposit' , isActive: false },
+                            { title: '결제수단 관리', component: '/customers/approval' , isActive: false },
+                            { title: '외상한도 잔액관리', component: '/customers/credit' , isActive: false },
+                            { title: '견적서 관리', component: '/customers/estimate' , isActive: false },
+                            { title: '간편가입 신청 목록', component: '/customers/applicant' , isActive: false }
                         ]
                     },
                     {
@@ -238,5 +239,11 @@
 
     .active{
         background-color: rgba(255,255,255,0.1)
+    }
+
+    .router-link-active{
+        color:#fff;
+        font-weight : bold;
+        text-decoration : underline;
     }
 </style>

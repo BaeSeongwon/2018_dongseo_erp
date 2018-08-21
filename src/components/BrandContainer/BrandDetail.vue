@@ -13,10 +13,31 @@
     <br>
 
 
-    <div class="cardbox cardbox-header">
+    <v-layout row v-if="loading">
+        <v-flex xs12 md12  style="text-align:center;">
+            <br>
+            <v-progress-circular
+                :value="80"
+                :width="2"
+                :size="50"
+                color="deep-orange lighten-2"
+                indeterminate
+                style="width:200px !important;"
+            ></v-progress-circular>
+                <br>
+                <br>
+                <br>
+        </v-flex>
+    </v-layout>
+
+    
+
+<div v-else>
+
+    <div class="cardbox cardbox-header" >
         <h3>브랜드정보</h3>
     </div>
-    <v-layout row cardbox cardbox-body>
+    <v-layout row cardbox cardbox-body >
         <v-flex xs12 md12 >
             <v-card flat class="card--flex-toolbar" color="transparent">
                 <v-chip style="margin-left:0;"   color="green" outline >우수기업</v-chip>
@@ -89,6 +110,8 @@
         </v-data-table>
 
     </div>
+
+</div>    
                 
 
     
@@ -133,7 +156,7 @@ export default{
     // ========== data ========== //
     data() {
         return {
-
+            loading:true,
             tabs: null,
                 tabsItems: [
                     {id: 1, title: 'Indicators', link: 'indicators'},
@@ -282,7 +305,9 @@ export default{
     
     // ========== created ========== //
     created() {
-        
+        setTimeout(()=>{
+            this.$set(this, 'loading', false)
+        }, 780)
     },
     
     
@@ -291,6 +316,8 @@ export default{
     // ========== methods ========== //
     methods: {
         
+        
+
     },
 
 
