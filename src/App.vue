@@ -40,4 +40,17 @@
         border-top:none;
         border-radius: 0 0 5px 5px;
     }
+
+.left-align{ text-align: left !important; }
+.right-align{ text-align: right !important; }
+.center-align{ text-align: center !important; }
+
+.td-margin td, 
+.td-margin th{
+    padding:10px 13px;
+    height:80px;
+}
+    .td-margin th {
+        background: #f1f1f1;
+    }
 </style>

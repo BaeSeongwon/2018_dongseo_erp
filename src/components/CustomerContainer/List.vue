@@ -151,16 +151,31 @@
 
 <!-- ===== 등록모달 ===== -->
 <modal 
-    title="Sample Modal" 
+    title="거래처 일괄 수정" 
     width="35%"
     :open="modal.customerEdit" 
     @close="modal.customerEdit = false" 
     @confirm="modal.customerEdit=false">
         
     <p slot="contents">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. <br>
-        Explicabo consequatur cum impedit velit autem perspiciatis qui aut fugit eligendi corporis earum, <br>
-        dolorem nisi vitae aliquam soluta, aperiam ullam animi consequuntur.
+        
+        <table style="width:100%;">
+                <colgroup>
+                    <col width="28%">
+                </colgroup>
+                <tr>
+                    <th><h4 class="center-align">양식다운로드</h4></th>
+                    <td>
+                        <v-btn depressed small style="width:97%;" color="success" @click.prevent="modal.taxbill = true">엑셀양식 다운로드</v-btn>
+                    </td>
+                </tr>
+                <tr>
+                    <th><h4 class="center-align">파일업로드</h4></th>
+                    <td>
+                        <v-btn depressed small outline style="width:97%;"  @click.prevent="modal.taxbill = true">엑셀파일 업로드</v-btn>
+                    </td>
+                </tr>
+            </table>
     </p>
 
     <!-- <div slot="buttons">

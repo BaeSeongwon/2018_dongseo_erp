@@ -9,71 +9,78 @@
         <h3>검색</h3>
     </div>
     <div class="cardbox cardbox-body" >
-      <v-flex sm12>
-        <table width="100%">
-          <colgroup>
-            <col width="13.5%">
-            <col width="1%">
-            <col width="20%">
-            <col width="1%">
-            <col width="41%">
-          </colgroup>
-          <tr>
-            <th><h3>키워드검색</h3></th>
-            <td></td>
-            <td>
-              <v-select
-                :items="['전체', '거래처명', '브랜드명']"
-                label="분류"
-              ></v-select>
-            </td>
-            <td></td>
-            <td>
-              <search-form label="이름을 입력해 주세요" />
-            </td>
-            <td></td>
-          </tr>
-        </table>
-        <table width="100%">
-          <colgroup>
-            <col width="13.5%">
-            <col width="1%">
-            <col width="20%">
-            <col width="1%">
-            <col width="20%">
-            <col width="1%">
-            <col width="20%">
-          </colgroup>
-          <tr>
-            <th><h3>즉시검색</h3></th>
-            <td></td>
-            <td>
-              <v-select
-                :items="['전체', '거래처명', '브랜드명']"
-                label="배송유형"
-              ></v-select>
-            </td>
-            <td></td>
-            <td>
-              <v-select
-                :items="['전체', '거래처명', '브랜드명']"
-                label="담당자"
-              ></v-select>
-            </td>
-            <td></td>
-            <td>
-              <v-select
-                :items="['전체', '거래처명', '브랜드명']"
-                label="담당자"
-              ></v-select>
-            </td>
-            <td></td>
-          </tr>
-        </table>
-      </v-flex>
+        <v-flex sm12>
+            <table width="100%">
+                <colgroup>
+                    <col width="12%">
+                </colgroup>
+                <tr>
+                    <th><h3>기간</h3></th>
+                    <td >
+                        <button-toggle :list="[ '전체' , '전월' , '금월' , '당일' ]" :default="0" />
+                    </td>
+                    <td>
+                        <date-range  />
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <colgroup>
+                    <col width="12%">
+                    <col width="1%">
+                    <col width="20%">
+                    <col width="1%">
+                    <col width="41%">
+                </colgroup>
+                <tr>
+                    <th><h3>키워드검색</h3></th>
+                    <td></td>
+                    <td>
+                    <v-select
+                        :items="['전체', '거래처명', '브랜드명']"
+                        label="분류"
+                    ></v-select>
+                    </td>
+                    <td></td>
+                    <td>
+                    <search-form label="이름을 입력해 주세요" />
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+            
+        </v-flex>
       
     </div>
 <br>
+
+
+
+
+<v-container grid-list-md cardbox  text-xs-center style="padding:10px 0;">
+    <table width="100%">
+            <tr>
+                <th rowspan="2">총 예치금잔액</th>
+                <th>총 이전 예치금 잔액</th>
+                <th>총 매출 금액</th>
+                <th>총 충전 금액</th>
+                <th>수정 금액</th>
+                <th>총 예치금 잔액</th>
+            </tr>
+            <tr>
+                <td>514,341원</td>
+                <td>732,410원</td>
+                <td>0원</td>
+                <td>0원</td>
+                <td>1,246,751원</td>
+            </tr>
+        </tbody>
+    </table>
+</v-container>
+
+<br>
+
+
 
 
 
@@ -81,14 +88,11 @@
 
     <table width="100%">
       <colgroup>
-        <col width="50%">
+        <col width="83%">
       </colgroup>
       <tr>
-        <td style="text-align:left;"><h3>거래처목록</h3></td>
-        <td><v-btn depressed outline style="width:97%;" @click.prevent="$router.push('/customers/sale')">할인/할증 관리</v-btn></td>
-        <td><v-btn depressed outline style="width:97%;">삭제</v-btn></td>
-        <td><v-btn depressed outline style="width:97%;" @click.prevent="modal.customerEdit=true">일괄수정</v-btn></td>
-        <td><v-btn depressed style="width:97%;" color="success" @click.prevent="$router.push('/customers/insert')">거래처 등록</v-btn></td>
+        <td style="text-align:left;"><h4>전체 {{desserts.length}}건</h4></td>
+        <td><v-btn depressed outline small style="width:97%;" color="success">엑셀다운로드</v-btn></td>
       </tr>
     </table>
               
@@ -109,26 +113,26 @@
                 
                     <template slot="items" slot-scope="props" >
                         <tr @click="$router.push('/customers/deposit/detail/'+props.item.id)">
-                        <td>{{ props.item.name }}</td>
-                        <td class="text-xs-right">{{ props.item.calories }}</td>
-                        <td class="text-xs-right">{{ props.item.fat }}</td>
-                        <td class="text-xs-right">{{ props.item.carbs }}</td>
-                        <td class="text-xs-right">{{ props.item.protein }}</td>
-                        <td class="justify-center layout px-0">
-                        <v-icon
-                            small
-                            class="mr-2"
-                            @click="editItem(props.item)"
-                        >
-                            edit
-                        </v-icon>
-                        <v-icon
-                            small
-                            @click="deleteItem(props.item)"
-                        >
-                            delete
-                        </v-icon>
-                        </td>
+                            <td>{{ props.item.name }}</td>
+                            <td class="text-xs-right">{{ props.item.calories }}</td>
+                            <td class="text-xs-right">{{ props.item.fat }}</td>
+                            <td class="text-xs-right">{{ props.item.carbs }}</td>
+                            <td class="text-xs-right">{{ props.item.protein }}</td>
+                            <td class="justify-center layout px-0">
+                                <v-icon
+                                    small
+                                    class="mr-2"
+                                    @click="editItem(props.item)"
+                                >
+                                    edit
+                                </v-icon>
+                                <v-icon
+                                    small
+                                    @click="deleteItem(props.item)"
+                                >
+                                    delete
+                                </v-icon>
+                            </td>
                         </tr>
                     </template>
                 </v-data-table>
@@ -203,6 +207,7 @@ export default{
         PageHeader,
         ListTable,
         Modal,
+        DateRange,
     },
     
     
