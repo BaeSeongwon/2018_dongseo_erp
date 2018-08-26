@@ -39,8 +39,8 @@
     <div class="cardbox cardbox-header" >
         <h3>검색</h3>
     </div>
-    <div class="cardbox cardbox-body" >
-      <v-flex sm12>
+    <div class="cardbox cardbox-body" style="padding:0;">
+    <v-flex sm12 class="td-margin">
         <table width="100%">
           <colgroup>
             <col width="13.5%">
@@ -112,13 +112,13 @@
 
     <table width="100%">
       <colgroup>
-        <col width="50%">
+        <col width="60%">
       </colgroup>
       <tr>
         <td style="text-align:left;"><h3>거래처목록</h3></td>
-        <td><v-btn depressed outline style="width:97%;" @click.prevent="$router.push('/customers/sale')">할인/할증 관리</v-btn></td>
-        <td><v-btn depressed outline style="width:97%;">삭제</v-btn></td>
-        <td><v-btn depressed outline style="width:97%;" @click.prevent="modal.customerEdit=true">일괄수정</v-btn></td>
+        <td><v-btn depressed outline style="width:97%;" @click.prevent="$router.push('/customers/approval/sale')">할인/할증 관리</v-btn></td>
+        <td><v-btn depressed outline style="width:97%;" @click.prevent="deleteList">삭제</v-btn></td>
+        <!-- <td><v-btn depressed outline style="width:97%;" @click.prevent="modal.customerEdit=true">일괄수정</v-btn></td> -->
         <td><v-btn depressed style="width:97%;" color="success" @click.prevent="$router.push('/customers/insert')">거래처 등록</v-btn></td>
       </tr>
     </table>
@@ -126,40 +126,58 @@
   </div>
     <v-container grid-list-md cardbox cardbox-body text-xs-center style="padding:10px 0;">
         <v-layout row wrap>
-            
+
             <!-- 데이터 -->
             <v-flex sm12>
                 
 
                 <v-data-table
-                    :headers="headers"
-                    :items="desserts"
+                    :headers="[
+                        { text: '번호', align:'left', sortable: 'false', value:'number' },
+                        { text: '날짜', align:'left', sortable: 'false', value:'date' },
+                        { text: '거래처명', align:'left', sortable: 'false', value:'account' },
+                        { text: '브랜드', align:'left', sortable: 'false', value:'brand' },
+                        { text: '배송유형', align:'left', sortable: 'false', value:'shippingType' },
+                        { text: '할인', align:'left', sortable: 'false', value:'sale' },
+                        { text: '총매출', align:'left', sortable: 'false', value:'totalSales' },
+                        { text: '선택', align:'left', sortable: 'false' },
+                    ]"
+                    :items="$models.customers"
                     hide-actions
                     class=""
                 >
-                
+                <!-- 
+                    {
+                        text: 'Dessert (100g serving)',
+                        align: 'left',
+                        sortable: false,
+                        value: 'name'
+                    },
+                     {
+                        "number":1,
+                        "date":"2018-08-21",
+                        "account":"서이",
+                        "brand":"",
+                        "shippingType":"직배송",
+                        "sale":"없음",
+                        "totalSales":"55,490원"
+                    },
+                 -->
                     <template slot="items" slot-scope="props" >
-                        <tr @click="$router.push('/customers/list/detail/'+props.item.id)">
-                        <td>{{ props.item.name }}</td>
-                        <td class="text-xs-right">{{ props.item.calories }}</td>
-                        <td class="text-xs-right">{{ props.item.fat }}</td>
-                        <td class="text-xs-right">{{ props.item.carbs }}</td>
-                        <td class="text-xs-right">{{ props.item.protein }}</td>
-                        <td class="justify-center layout px-0">
-                        <v-icon
-                            small
-                            class="mr-2"
-                            @click="editItem(props.item)"
-                        >
-                            edit
-                        </v-icon>
-                        <v-icon
-                            small
-                            @click="deleteItem(props.item)"
-                        >
-                            delete
-                        </v-icon>
-                        </td>
+                        <tr >
+                            <td class="text-xs-left">{{ props.item.number }}</td>
+                            <td class="text-xs-left">{{ props.item.date }}</td>
+                            <td class="text-xs-left" @click="$router.push('/customers/list/detail/'+props.item.number)">
+                                {{ props.item.account }}
+                            </td>
+                            <td class="text-xs-left">{{ props.item.brand }}</td>
+                            <td class="text-xs-left">{{ props.item.shippingType }}</td>
+                            <td class="text-xs-left">{{ props.item.sale }}</td>
+                            <td class="text-xs-left">{{ props.item.totalSales }}</td>
+                            <td class="text-xs-left">
+                                <!-- {{ props.item.number }} -->
+                                <v-checkbox v-model="checkList" :value="props.item.number"></v-checkbox>
+                            </td>
                         </tr>
                     </template>
                 </v-data-table>
@@ -278,123 +296,8 @@ export default{
 
             search: '',
             pagination: {},
-            selected: [],
-
-             headers: [
-                {
-                    text: 'Dessert (100g serving)',
-                    align: 'left',
-                    sortable: false,
-                    value: 'name'
-                },
-                { text: 'Calories', value: 'calories' },
-                { text: 'Fat (g)', value: 'fat' },
-                { text: 'Carbs (g)', value: 'carbs' },
-                { text: 'Protein (g)', value: 'protein' },
-                { text: 'Iron (%)', value: 'iron' }
-            ],
-            desserts: [
-                {
-                    id:1,
-                    value: false,
-                    name: 'Frozen Yogurt',
-                    calories: 159,
-                    fat: 6.0,
-                    carbs: 24,
-                    protein: 4.0,
-                    iron: '1%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Ice cream sandwich',
-                    calories: 237,
-                    fat: 9.0,
-                    carbs: 37,
-                    protein: 4.3,
-                    iron: '1%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Eclair',
-                    calories: 262,
-                    fat: 16.0,
-                    carbs: 23,
-                    protein: 6.0,
-                    iron: '7%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Cupcake',
-                    calories: 305,
-                    fat: 3.7,
-                    carbs: 67,
-                    protein: 4.3,
-                    iron: '8%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Gingerbread',
-                    calories: 356,
-                    fat: 16.0,
-                    carbs: 49,
-                    protein: 3.9,
-                    iron: '16%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Jelly bean',
-                    calories: 375,
-                    fat: 0.0,
-                    carbs: 94,
-                    protein: 0.0,
-                    iron: '0%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Lollipop',
-                    calories: 392,
-                    fat: 0.2,
-                    carbs: 98,
-                    protein: 0,
-                    iron: '2%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Honeycomb',
-                    calories: 408,
-                    fat: 3.2,
-                    carbs: 87,
-                    protein: 6.5,
-                    iron: '45%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Donut',
-                    calories: 452,
-                    fat: 25.0,
-                    carbs: 51,
-                    protein: 4.9,
-                    iron: '22%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'KitKat',
-                    calories: 518,
-                    fat: 26.0,
-                    carbs: 65,
-                    protein: 7,
-                    iron: '6%'
-                }
-            ],
+            
+            checkList: [],
 
             page: 1
 
@@ -408,7 +311,6 @@ export default{
     
     // ========== created ========== //
     created() {
-        console.log(this.$models.orders[2]);
         setTimeout(()=>{
             this.$set(this, 'loading', false)
         }, 780)
@@ -420,6 +322,32 @@ export default{
     // ========== methods ========== //
     methods: {
         
+
+        // ===== 목록 삭제 ===== //
+        deleteList(){
+            if(this.checkList.length < 1){
+                alert('선택된 거래처가 없습니다.')
+                return
+            }
+            if(!confirm('해당 거래처를 삭제하시겠습니까?')){
+                return
+            }
+            this.$set(this, 'loading', true)
+            setTimeout(()=>{
+                var id;
+                this.checkList.forEach((checkItem)=>{
+                    id = this.$models.customers.findIndex((customer)=>{
+                        return customer.number == checkItem
+                    })
+                    this.$models.customers.splice(id, 1)
+                    id=null
+                })
+                this.$set(this, 'loading', false)
+                this.$set(this, 'checkList', [])
+            },670)
+        }
+
+
     },
 
 

@@ -5,7 +5,7 @@
 
 
 <!-- ========== 헤더 ========== -->
-<page-header title="견적서 상세보기" />
+<page-header title="견적서 수정" />
 <br>
 
 
@@ -34,12 +34,12 @@
 <div v-else>
 
     <div class="cardbox cardbox-header" >
-        <h3>거래처정보</h3>
+        <h3>기본정보</h3>
     </div>
-    <v-layout row cardbox cardbox-body  style="padding:0;">
-        <v-flex xs12 md12 >
-            
-            <table style="width:94%;" class="td-margin">
+    <v-layout row cardbox cardbox-body style="padding:0;">
+        <v-flex xs12 md12 class="td-margin">
+
+            <table style="width:94%;">
                 <colgroup>
                     <col width="15%">
                     <col width="35%">
@@ -47,236 +47,118 @@
                     <col width="35%">
                 </colgroup>
                 <tr>
-                    <th><h4 class="center-align ">거래처 코드</h4></th>
-                    <td colspan="3" >
-                        <v-text-field
-                            label="코드를 입력해 주세요"
-                            required
-                        ></v-text-field>
-                    </td>
-                </tr>
-                <tr>
-                    <th><h4 class="center-align">거래처명 *</h4></th>
+                    <th><h4 class="center-align">거래처 *</h4></th>
                     <td>
                         <v-text-field
                             label="거래처명을 입력해 주세요"
+                            v-model="estimate.account"
                             required
                         ></v-text-field>
                     </td>
-                    <th><h4 class="center-align">업종</h4></th>
+                    <th><h4 class="center-align">취급 업종</h4></th>
                     <td>
-                        <v-select
-                            :items="['전체', '거래처명', '브랜드명']"
-                            label="분류"
-                        ></v-select>
+                        <v-text-field
+                            label="취급업종명을 입력해 주세요"
+                            v-model="estimate.sector"
+                            required
+                        ></v-text-field>
                     </td>
                 </tr>
                 <tr>
-                    <th><h4 class="center-align">브랜드 선택</h4></th>
+                    <th><h4 class="center-align">배송 유형</h4></th>
                     <td>
-                        <v-select
-                            :items="['전체', '거래처명', '브랜드명']"
-                            label="분류"
-                        ></v-select>
+                        <v-radio-group v-model="estimate.shippingType" row>
+                            <v-radio label="직배송" value="직배송"></v-radio>
+                            <v-radio label="택배배송" value="택배배송"></v-radio>
+                        </v-radio-group>
                     </td>
                     <td></td>
                     <td></td>
                 </tr>
-                <tr >
-                    <th><h4 class="center-align">배송지</h4></th>
+                <tr>
+                    <th><h4 class="center-align">비고</h4></th>
                     <td colspan="3">
-                        <search-form label="주소를 입력해 주세요" style="width:70%;" />
-                        <v-text-field
-                            label="상세주소"
-                            required
-                            style="width:50%;"
-                        ></v-text-field>
+                        <v-textarea
+                            name="input-7-1"
+                            label="내용을 입력해 주세요"
+                            v-model="estimate.remarks"
+                            hint="Hint text"
+                        ></v-textarea>
                     </td>
                 </tr>
-                <tr>
-                    <th><h4 class="center-align">배송유형</h4></th>
-                    <td colspan="3">
-                        <button-toggle :list="[ '전체' , '직접배송' , '택배배송' ]" :default="0" />
-                    </td>
-                </tr>
-                <tr>
-                    <th><h4 class="center-align">아이디</h4></th>
-                    <td>
-                        <search-form label="주소를 입력해 주세요" />
-                    </td>
-                    <th><h4 class="center-align">패스워드</h4></th>
-                    <td>
-                        <search-form label="주소를 입력해 주세요" />
-                    </td>
-                </tr>
-                <tr>
-                    <th><h4 class="center-align">거래처 연락처</h4></th>
-                    <td>
-                        <v-text-field
-                            label="전화번호를 입력해 주세요"
-                            required
-                        ></v-text-field>
-                    </td>
-                    <th><h4 class="center-align">세금계산서 정보</h4></th>
-                    <td>
-                        <v-btn depressed outline style="width:97%;" color="pupple" @click.prevent="modal.taxbill = true">거래처 등록</v-btn>
-                    </td>
-                </tr>
+            </table>
+
+        </v-flex>
+    </v-layout>
+<br>
+
+    <div class="cardbox cardbox-header" >
+        <table width="100%">
+        <colgroup>
+            <col width="85%">
+        </colgroup>
+        <tr>
+            <td style="text-align:left;"><h3>상품목록</h3></td>
+            <td class="text-xs-right"><v-btn depressed color="success">상품추가</v-btn></td>
+        </tr>
+        </table>
+    </div>
+    <v-layout row cardbox cardbox-body style="padding:0;">
+        <v-flex sm12>
                 
-            </table>
 
-        </v-flex>
+                <v-data-table
+                    :headers="[
+                        { text:'번호',        sortable:false },
+                        { text:'상품명',      sortable:false },
+                        { text:'규격',        sortable:false },
+                        { text:'제조사',      sortable:false },
+                        { text:'수량',        sortable:false, align:'center' },
+                        { text:'단가',        sortable:false, align:'center' },
+                        { text:'공급가액',    sortable:false, align:'center' },
+                        { text:'부가세',      sortable:false, align:'center' },
+                        { text:'합계금액',    sortable:false, align:'center' },
+                        { text:'삭제',        sortable:false, align:'center' },
+                    ]"
+                    :items="estimate.product"
+                    hide-actions
+                    class=""
+                >
+                
+                
+                    <template slot="items" slot-scope="props" >
+                        <tr>
+                            <td class="text-xs-left">{{ props.item.number }}</td>
+                            <td class="text-xs-left">{{ props.item.productName }}</td>
+                            <td class="text-xs-left">{{ props.item.unit }}</td>
+                            <td class="text-xs-left">{{ props.item.origin }}</td>
+                            <td class="text-xs-center">{{ props.item.amount }}</td>
+                            <td class="text-xs-center">{{ props.item.price }}</td>
+                            <td class="text-xs-center">{{ props.item.supplyPrice }}</td>
+                            <td class="text-xs-center">{{ props.item.vat }}</td>
+                            <td class="text-xs-center">{{ props.item.totalPrice }}</td>
+                            <td class="text-xs-center">
+                                <v-btn depressed style="width:57%;" >삭제</v-btn>
+                            </td>
+                        </tr>
+                    </template>
+                    <template slot="footer">
+                        <tr>
+                            <th class="text-xs-center" colspan="4">합계</th>
+                            <td class="text-xs-center">-</td>
+                            <td class="text-xs-center">-</td>
+                            <td class="text-xs-center">-</td>
+                            <td class="text-xs-center">-</td>
+                            <td class="text-xs-center">-</td>
+                            <td class="text-xs-center"></td>
+                        </tr>
+                    </template>
+                </v-data-table>
+
+
+            </v-flex>
     </v-layout>
-<br>
 
-
-
-    <div class="cardbox cardbox-header" >
-        <h3>배송/영업 담당자 정보</h3>
-    </div>
-    <v-layout row cardbox cardbox-body style="padding:0;">
-        <v-flex xs12 md12 class="td-margin">
-            
-            <table style="width:94%;">
-                <colgroup>
-                    <col width="15%">
-                    <col width="35%">
-                    <col width="15%">
-                    <col width="35%">
-                </colgroup>
-                <tr>
-                    <th><h4 class="center-align">배송 담당자 *</h4></th>
-                    <td>
-                        <v-select
-                            :items="['전체', '거래처명', '브랜드명']"
-                            label="분류"
-                        ></v-select>
-                    </td>
-                    <th><h4 class="center-align">연락처</h4></th>
-                    <td>
-                        <v-text-field
-                            label="전화번호를 입력해 주세요"
-                            required
-                        ></v-text-field>
-                    </td>
-                </tr>
-                <tr>
-                    <th><h4 class="center-align">영업 담당자</h4></th>
-                    <td>
-                        <v-select
-                            :items="['전체', '거래처명', '브랜드명']"
-                            label="분류"
-                        ></v-select>
-                    </td>
-                    <th><h4 class="center-align">연락처</h4></th>
-                    <td>
-                        <v-text-field
-                            label="전화번호를 입력해 주세요"
-                            required
-                        ></v-text-field>
-                    </td>
-                </tr>
-            </table>
-
-        </v-flex>
-    </v-layout>
-<br>
-
-    <div class="cardbox cardbox-header" >
-        <h3>단가 그룹</h3>
-    </div>
-    <v-layout row cardbox cardbox-body style="padding:0;">
-        <v-flex xs12 md12 class="td-margin">
-            
-            <table style="width:94%;">
-                <colgroup>
-                    <col width="15%">
-                    <col width="35%">
-                    <col width="15%">
-                    <col width="35%">
-                </colgroup>
-                <tr>
-                    <th><h4 class="center-align">단가그룹 선택</h4></th>
-                    <td>
-                        <v-select
-                            :items="['전체', '거래처명', '브랜드명']"
-                            label="분류"
-                        ></v-select>
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-
-        </v-flex>
-    </v-layout>
-<br>
-
-
-
-
-    <div class="cardbox cardbox-header" >
-        <h3>할인/할증율 등급</h3>
-    </div>
-    <v-layout row cardbox cardbox-body style="padding:0;">
-        <v-flex xs12 md12 class="td-margin">
-            
-            <table style="width:94%;">
-                <colgroup>
-                    <col width="15%">
-                    <col width="35%">
-                    <col width="15%">
-                    <col width="35%">
-                </colgroup>
-                <tr>
-                    <th><h4 class="center-align">할인/할증율<br>등급 선택</h4></th>
-                    <td>
-                        <v-select
-                            :items="['전체', '거래처명', '브랜드명']"
-                            label="분류"
-                        ></v-select>
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-
-        </v-flex>
-    </v-layout>
-<br>
-
-
-    <div class="cardbox cardbox-header" >
-        <h3>수입물품 유통이력 정보</h3>
-    </div>
-    <v-layout row cardbox cardbox-body style="padding:0;">
-        <v-flex xs12 md12 class="td-margin">
-            
-             <table style="width:94%;">
-                <colgroup>
-                    <col width="15%">
-                    <col width="35%">
-                    <col width="15%">
-                    <col width="35%">
-                </colgroup>
-                <tr>
-                    <th><h4 class="center-align">사업자등록증 보유 유무</h4></th>
-                    <td>
-                        <button-toggle :list="[ '유' , '무' ]" :default="0" />
-                    </td>
-                    <th><h4 class="center-align">양수자 유형</h4></th>
-                    <td>
-                        <v-select
-                            :items="['전체', '거래처명', '브랜드명']"
-                            
-                        ></v-select>
-                    </td>
-                </tr>
-            </table>
-
-        </v-flex>
-    </v-layout>
-<br>
 
 
 <v-btn
@@ -286,6 +168,7 @@
     bottom
     right
     color="pupple"
+    @click.prevent="save"
 >
     <v-icon>save</v-icon>
 </v-btn>
@@ -430,19 +313,6 @@ export default{
 
 
             loading:true,
-            tabs: null,
-                tabsItems: [
-                    {id: 1, title: 'Indicators', link: 'indicators'},
-                    {id: 2, title: 'Backup', link: 'backup'},
-                    {id: 3, title: 'Logs', link: 'logs'}
-                ],
-
-            tableData: [
-                { id: 10, name: 'Prod 01', price: 100000 },
-                { id: 11, name: 'Prod 02', price: 200000 },
-                { id: 12, name: 'Prod 02', price: 200000 },
-                { id: 13, name: 'Prod 03', price: 300000 },
-            ],
 
 
 
@@ -450,123 +320,10 @@ export default{
             pagination: {},
             selected: [],
 
-             headers: [
-                {
-                    text: 'Dessert (100g serving)',
-                    align: 'left',
-                    sortable: false,
-                    value: 'name'
-                },
-                { text: 'Calories', value: 'calories' },
-                { text: 'Fat (g)', value: 'fat' },
-                { text: 'Carbs (g)', value: 'carbs' },
-                { text: 'Protein (g)', value: 'protein' },
-                { text: 'Iron (%)', value: 'iron' }
-            ],
-            desserts: [
-                {
-                    id:1,
-                    value: false,
-                    name: 'Frozen Yogurt',
-                    calories: 159,
-                    fat: 6.0,
-                    carbs: 24,
-                    protein: 4.0,
-                    iron: '1%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Ice cream sandwich',
-                    calories: 237,
-                    fat: 9.0,
-                    carbs: 37,
-                    protein: 4.3,
-                    iron: '1%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Eclair',
-                    calories: 262,
-                    fat: 16.0,
-                    carbs: 23,
-                    protein: 6.0,
-                    iron: '7%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Cupcake',
-                    calories: 305,
-                    fat: 3.7,
-                    carbs: 67,
-                    protein: 4.3,
-                    iron: '8%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Gingerbread',
-                    calories: 356,
-                    fat: 16.0,
-                    carbs: 49,
-                    protein: 3.9,
-                    iron: '16%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Jelly bean',
-                    calories: 375,
-                    fat: 0.0,
-                    carbs: 94,
-                    protein: 0.0,
-                    iron: '0%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Lollipop',
-                    calories: 392,
-                    fat: 0.2,
-                    carbs: 98,
-                    protein: 0,
-                    iron: '2%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Honeycomb',
-                    calories: 408,
-                    fat: 3.2,
-                    carbs: 87,
-                    protein: 6.5,
-                    iron: '45%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Donut',
-                    calories: 452,
-                    fat: 25.0,
-                    carbs: 51,
-                    protein: 4.9,
-                    iron: '22%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'KitKat',
-                    calories: 518,
-                    fat: 26.0,
-                    carbs: 65,
-                    protein: 7,
-                    iron: '6%'
-                }
-            ],
 
-            page: 1
+            page: 1,
+            estimate_id:null, // 견적서 아이디
+            estimate:{}, // 견적서
 
 
 
@@ -578,6 +335,9 @@ export default{
     
     // ========== created ========== //
     created() {
+        var estimate_id = this.$route.params.est_id
+        this.$set(this, 'estimate_id', estimate_id)
+        this.getEstimate()
         setTimeout(()=>{
             this.$set(this, 'loading', false)
         }, 780)
@@ -589,7 +349,23 @@ export default{
     // ========== methods ========== //
     methods: {
         
+        // ===== get data ===== //
+        getEstimate(){
+            var rid = this.$models.estimate.findIndex((est)=>{
+                return est.number == this.estimate_id
+            })
+            var temp = JSON.stringify(this.$models.estimate[rid])
+            this.$set(this, 'estimate', JSON.parse(temp))
+        },
         
+        
+        // ===== save ===== //
+        save(){
+            var rid = this.$models.estimate.findIndex((est)=>{
+                return est.number == this.estimate_id
+            })
+            this.$set(this.$models.estimate, rid, this.estimate)
+        },
 
     },
 

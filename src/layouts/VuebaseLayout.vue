@@ -112,7 +112,7 @@
                             { title: '거래처 목록', component: '/customers/list' , isActive: false },
                             // { title: '할인/할증목록', component: '/customers/sale' , isActive: false },
                             { title: '거래처 예치금관리', component: '/customers/deposit' , isActive: false },
-                            { title: '결제수단 관리', component: '/customers/approval' , isActive: false },
+                            { title: '결제수단 관리', component: '/customers/payment' , isActive: false },
                             { title: '외상한도 잔액관리', component: '/customers/credit' , isActive: false },
                             { title: '견적서 관리', component: '/customers/estimate' , isActive: false },
                             { title: '간편가입 신청 목록', component: '/customers/applicant' , isActive: false }

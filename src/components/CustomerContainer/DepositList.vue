@@ -39,8 +39,8 @@
     <div class="cardbox cardbox-header" >
         <h3>검색</h3>
     </div>
-    <div class="cardbox cardbox-body" >
-        <v-flex sm12>
+    <div class="cardbox cardbox-body" style="padding:0;">
+        <v-flex sm12 class="td-margin">
             <table width="100%">
                 <colgroup>
                     <col width="12%">
@@ -136,34 +136,52 @@
                 
 
                 <v-data-table
-                    :headers="headers"
-                    :items="desserts"
+                    :headers="[
+                        { text:'번호', align:'left', sortable:false },
+                        { text:'거래처', align:'left', sortable:false },
+                        { text:'이전 예치금 잔액', align:'left', sortable:false },
+                        { text:'매출 금액', align:'left', sortable:false },
+                        { text:'충전 금액', align:'left', sortable:false },
+                        { text:'수정 금액', align:'left', sortable:false },
+                        { text:'예치금 잔액', align:'left', sortable:false },
+                        { text:'담당자', align:'left', sortable:false },
+                        { text:'최종거래일', align:'left', sortable:false },
+                    ]"
+                    :items="$models.customers_deposit"
                     hide-actions
                     class=""
                 >
-                
+                <!-- 
+                    {
+                        text: 'Dessert (100g serving)',
+                        align: 'left',
+                        sortable: false,
+                        value: 'name'
+                    },
+                    {
+                        "number":1,
+                        "account":"파스타앤피자",
+                        "preDeposit":"182,490원",
+                        "salesAmount":"0원",
+                        "chargeAmount":"0원",
+                        "updateAmount":"0원",
+                        "depositBalance":"182,490원",
+                        "manager":"코모리",
+                        "finalDate":"2018-07-13",
+                        "detail":[]
+                    }
+                 -->
                     <template slot="items" slot-scope="props" >
-                        <tr @click="$router.push('/customers/deposit/detail/'+props.item.id)">
-                            <td>{{ props.item.name }}</td>
-                            <td class="text-xs-right">{{ props.item.calories }}</td>
-                            <td class="text-xs-right">{{ props.item.fat }}</td>
-                            <td class="text-xs-right">{{ props.item.carbs }}</td>
-                            <td class="text-xs-right">{{ props.item.protein }}</td>
-                            <td class="justify-center layout px-0">
-                                <v-icon
-                                    small
-                                    class="mr-2"
-                                    @click="editItem(props.item)"
-                                >
-                                    edit
-                                </v-icon>
-                                <v-icon
-                                    small
-                                    @click="deleteItem(props.item)"
-                                >
-                                    delete
-                                </v-icon>
-                            </td>
+                        <tr @click="$router.push('/customers/deposit/detail/'+props.item.number)">
+                            <td class="text-xs-left">{{ props.item.number }}</td>
+                            <td class="text-xs-left">{{ props.item.account }}</td>
+                            <td class="text-xs-left">{{ props.item.preDeposit }}</td>
+                            <td class="text-xs-left">{{ props.item.salesAmount }}</td>
+                            <td class="text-xs-left">{{ props.item.chargeAmount }}</td>
+                            <td class="text-xs-left">{{ props.item.updateAmount }}</td>
+                            <td class="text-xs-left">{{ props.item.depositBalance }}</td>
+                            <td class="text-xs-left">{{ props.item.manager }}</td>
+                            <td class="text-xs-left">{{ props.item.finalDate }}</td>
                         </tr>
                     </template>
                 </v-data-table>

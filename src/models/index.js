@@ -2,6 +2,7 @@ import brands from './brands.json';
 import customers_deposit from './customers_deposit.json';
 import customers_payment_method from './customers_payment_method.json';
 import customers from './customers.json';
+import estimate from './estimate.json'; // 견적서
 // import orders from './orders.json';
 import products_category from './products_category.json';
 import products from './products.json';
@@ -15,6 +16,7 @@ export default {
     customers_deposit,
     customers_payment_method,
     customers,
+    estimate,
     // orders,
     products_category,
     products,
