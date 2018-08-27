@@ -204,15 +204,15 @@
             </tr>
             <tr>
                 <td colspan="5" rowspan="4">
-                2018년 08월 25일
+                {{ item.date }}
                 <br>
-                오키토키 귀하
+                {{ item.account }} 귀하
                 <br>
-                견적가 2,500원
+                견적가 {{ item.estimatePrice }}
                 </td>
                 <td rowspan="4">발주처</td>
                 <td>사업자 등록번호</td>
-                <td colspan="2">120-86-9999</td>
+                <td colspan="2">{{ item.number }}</td>
             </tr>
             <tr>
                 <td>상호(법인명)</td>
@@ -237,29 +237,29 @@
                 <th>세액</th>
                 <th>총액</th>
             </tr>
-            <tr>
-                <th>1</th>
-                <th>떡볶이 분말</th>
-                <th></th>
-                <th></th>
-                <th>1</th>
-                <th>1,000</th>
-                <th>909</th>
-                <th>91</th>
-                <th>1,000</th>
+            <tr v-for="(prod, pid)  in  item.product" :key="pid">
+                <td>{{ prod.number }}</td>
+                <td>{{ prod.productName }}</td>
+                <td>{{ prod.unit }}</td>
+                <td>{{ prod.origin }}</td>
+                <td>{{ prod.amount }}</td>
+                <td>{{ prod.price }}</td>
+                <td>{{ prod.supplyPrice }}</td>
+                <td>{{ prod.vat }}</td>
+                <td>{{ prod.totalPrice }}</td>
             </tr>
             <tr>
-                <td rowspan="3">비고</td>
+                <th rowspan="3">비고</th>
                 <td colspan="6" rowspan="3"></td>
-                <td>공급가 총액</td>
+                <th>공급가 총액</th>
                 <th>2,273원</th>
             </tr>
             <tr>
-                <td>부가세 총액</td>
+                <th>부가세 총액</th>
                 <th>227원</th>
             </tr>
             <tr>
-                <td>합계 금액</td>
+                <th>합계 금액</th>
                 <th>2,500원</th>
             </tr>
         </table>
@@ -364,9 +364,9 @@ export default{
             }
             
             this.$set(this.modal, 'printer', true)
-            setTimeout(()=>{
+            // setTimeout(()=>{
                 this.$set(this, 'printList', pl)
-            }, 670)
+            // }, 670)
         }
 
     },

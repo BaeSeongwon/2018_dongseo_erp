@@ -119,7 +119,7 @@
                         <v-text-field
                             label="패스워드를 입력해 주세요"
                             v-model="customer.accountPw"
-                            :type="show1 ? 'text' : 'password'"
+                            type="password"
                             required
                         ></v-text-field>
                     </td>
@@ -135,7 +135,7 @@
                     </td>
                     <th><h4 class="center-align">세금계산서 정보</h4></th>
                     <td>
-                        <v-btn depressed outline style="width:97%;" color="pupple" @click.prevent="modal.taxbill = true">거래처 등록</v-btn>
+                        <v-btn depressed outline style="width:97%;" color="pupple" @click.prevent="modal.taxbill = true">상세보기</v-btn>
                     </td>
                 </tr>
                 
@@ -337,7 +337,8 @@
                     <th><h4 class="center-align">사업자명</h4></th>
                     <td>
                         <v-text-field
-                            label="코드를 입력해 주세요"
+                            label="사업자명을 입력해 주세요"
+                            v-model="taxCalculator.name"
                             required
                         ></v-text-field>
                     </td>
@@ -346,7 +347,8 @@
                     <th><h4 class="center-align">사업자등록번호</h4></th>
                     <td>
                         <v-text-field
-                            label="코드를 입력해 주세요"
+                            label="사업자번호를 입력해 주세요"
+                            v-model="taxCalculator.code"
                             required
                         ></v-text-field>
                     </td>
@@ -355,7 +357,8 @@
                     <th><h4 class="center-align">대표자</h4></th>
                     <td>
                         <v-text-field
-                            label="코드를 입력해 주세요"
+                            label="대표자명을 입력해 주세요"
+                            v-model="taxCalculator.manager"
                             required
                         ></v-text-field>
                     </td>
@@ -364,7 +367,8 @@
                     <th><h4 class="center-align">사업장 소재지</h4></th>
                     <td>
                         <v-text-field
-                            label="코드를 입력해 주세요"
+                            label="소재지를 입력해 주세요"
+                            v-model="taxCalculator.addr"
                             required
                         ></v-text-field>
                     </td>
@@ -373,7 +377,8 @@
                     <th><h4 class="center-align">사업종류</h4></th>
                     <td>
                         <v-text-field
-                            label="코드를 입력해 주세요"
+                            label="사업종류를 입력해 주세요"
+                            v-model="taxCalculator.type"
                             required
                         ></v-text-field>
                     </td>
@@ -382,7 +387,8 @@
                     <th><h4 class="center-align">이메일 주소</h4></th>
                     <td>
                         <v-text-field
-                            label="코드를 입력해 주세요"
+                            label="이메일을 입력해 주세요"
+                            v-model="taxCalculator.email"
                             required
                         ></v-text-field>
                     </td>
@@ -390,10 +396,10 @@
             </table>
         </div>
 
-        <!-- <div slot="buttons">
-            <v-btn color="green darken-1" flat @click.native="modal.taxbill=false">Close</v-btn>
-            <v-btn color="green darken-1" flat @click.native="modal.taxbill=false">OK</v-btn>
-        </div> -->
+        <div slot="buttons">
+            <!-- <v-btn color="green darken-1" flat @click.native="modal.taxbill=false">Close</v-btn> -->
+            <v-btn color="green darken-1" flat @click.native="modal.taxbill=false">확인</v-btn>
+        </div>
     </modal>
 
 
@@ -469,6 +475,16 @@ export default{
             customer_id : null , // customer_id
             customer: null,
 
+            // 세금계산서
+            taxCalculator:{
+                name:'',
+                code:'',
+                manager:'',
+                addr:'',
+                type:'',
+                email:''
+            }// 
+
 
 
         }
@@ -495,8 +511,12 @@ export default{
             var rid = this.$models.customers.findIndex((item)=>{
                 return item.number == idx
             })
-            var dd = JSON.stringify(this.$models.customers[rid])
-            this.$set(this, 'customer', JSON.parse(dd))
+            var c = JSON.stringify(this.$models.customers[rid])
+            var tax = JSON.stringify(this.$models.customers[rid].taxCalculator)
+            this.$set(this, 'customer', JSON.parse(c))
+            if(tax!=undefined){
+                this.$set(this, 'taxCalculator', JSON.parse(tax))
+            }
             setTimeout(()=>{ this.$set(this, 'loading', false) }, 750)
         },
 
@@ -506,6 +526,7 @@ export default{
                 return item.number == this.customer_id
             })
 
+            this.customer.taxCalculator = this.taxCalculator
             this.$models.customers[rid] = this.customer
             alert('저장되었습니다.')
             this.$router.push('/customers/list')

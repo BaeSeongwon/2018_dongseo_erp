@@ -116,7 +116,9 @@
       </colgroup>
       <tr>
         <td style="text-align:left;"><h3>거래처목록</h3></td>
-        <td><v-btn depressed style="width:97%;" color="success" @click.prevent="save">변경내용 저장</v-btn></td>
+        <td>
+            <!-- <v-btn depressed style="width:97%;" color="success" @click.prevent="save">변경내용 저장</v-btn> -->
+        </td>
       </tr>
     </table>
               

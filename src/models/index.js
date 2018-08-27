@@ -10,6 +10,7 @@ import purchase_buyer_balance from './purchase_buyer_balance.json';
 import orders from './orders.json';
 import purchase_buyer from './purchase_buyer.json';
 import purchase_order from './purchase_order.json';
+import sales from './sales.json';
 
 export default {
     brands,
@@ -24,4 +25,5 @@ export default {
     orders,
     purchase_buyer,
     purchase_order,
+    sales,
 }

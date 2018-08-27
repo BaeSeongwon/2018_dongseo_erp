@@ -205,10 +205,32 @@ const routes = [
         component:()=> import('@/components/Dashboard/Layout'),
         children: [
             { // === 목록 ==== //
-                path: '',
+                path: 'list',
                 name: 'BrandList',
                 component: ()=> import('@/components/BrandContainer/BrandList')
             },
+            
+            { // === 상품목록 ==== //
+                path: 'products',
+                name: 'BrandProducts',
+                component: ()=> import('@/components/BrandContainer/BrandProducts')
+            },
+                { // === 상품상세 ==== //
+                    path: 'products/:brand_id',
+                    name: 'BrandProductDetail',
+                    component: ()=> import('@/components/BrandContainer/BrandProductDetail')
+                },
+
+            { // === 거래처목록 ==== //
+                path: 'customers',
+                name: 'BrandCustomers',
+                component: ()=> import('@/components/BrandContainer/BrandCustomers')
+            },
+                { // === 거래처상세 ==== //
+                    path: 'customers/:brand_id',
+                    name: 'BrandCustomerDetail',
+                    component: ()=> import('@/components/BrandContainer/BrandCustomerDetail')
+                },
             
             { // === 입점요청 ==== //
                 path: 'applicant',
