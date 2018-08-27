@@ -68,8 +68,9 @@
                     <th><h4 class="center-align">업종</h4></th>
                     <td>
                         <v-select
-                            :items="['전체', '거래처명', '브랜드명']"
-                            label="분류"
+                            :items="$models.option_sector"
+                            v-model="customer.customerSector"
+                            label="업종"
                         ></v-select>
                     </td>
                 </tr>
@@ -79,6 +80,7 @@
                         <v-select
                             :items="this.$models.brands"
                             item-text="brandName"
+                            v-model="customer.brand"
                             label="분류"
                         ></v-select>
                     </td>
@@ -88,11 +90,24 @@
                 <tr >
                     <th><h4 class="center-align">배송지</h4></th>
                     <td colspan="3">
-                        <search-form label="주소를 입력해 주세요" style="width:70%;" />
+                        <!-- <search-form label="주소를 입력해 주세요" style="width:70%;" v-model="customer.shipping[1]" /> -->
                         <v-text-field
                             label="상세주소"
+                            v-model="customer.shipping[1]"
                             required
                             style="width:50%;"
+                        ></v-text-field>
+                        <v-text-field
+                            label="상세주소"
+                            v-model="customer.shipping[2]"
+                            required
+                            style="width:50%;"
+                        ></v-text-field>
+                        <v-text-field
+                            label="우편번호"
+                            v-model="customer.shipping[0]"
+                            required
+                            style="width:30%;"
                         ></v-text-field>
                     </td>
                 </tr>

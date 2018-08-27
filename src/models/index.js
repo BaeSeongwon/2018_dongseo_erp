@@ -12,6 +12,12 @@ import purchase_buyer from './purchase_buyer.json';
 import purchase_order from './purchase_order.json';
 import sales from './sales.json';
 
+// option 값들
+import option_sector from './option_sector.json'
+import option_groups from './option_groups.json'
+import option_sales from './option_sales.json'
+import option_transferee from './option_transferee.json'
+
 export default {
     brands,
     customers_deposit,
@@ -26,4 +32,9 @@ export default {
     purchase_buyer,
     purchase_order,
     sales,
+
+    option_sector,
+    option_groups,
+    option_sales,
+    option_transferee,
 }
