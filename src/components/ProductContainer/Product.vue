@@ -70,26 +70,45 @@
         <span>전체 0건</span>
       </v-flex>
       <v-flex>
-        <v-btn>판매중</v-btn>
-        <v-btn>판매중지</v-btn>
+        <v-btn outline>판매중</v-btn>
+        <v-btn outline>판매중지</v-btn>
       </v-flex>
       <v-flex>
-        <v-btn>재고변경</v-btn>
+        <v-btn outline>재고변경</v-btn>
       </v-flex>
-      <v-flex>
-        <v-btn>삭제</v-btn>
-        <v-btn>상품 일괄 수정</v-btn>
-        <v-btn>상품 대량 등록</v-btn>
-        <v-btn>상품등록</v-btn>
+      <v-flex style="text-align:right">
+        <v-btn outline>삭제</v-btn>
+        <v-btn outline>상품 일괄 수정</v-btn>
+        <v-btn outline>상품 대량 등록</v-btn>
+        <v-btn outline>상품등록</v-btn>
       </v-flex>
     </v-layout>
   </v-container>
   <v-container>
     <v-layout>
-      <v-flex>
+      <v-flex xs12> 
         <v-data-table 
           :headers="headers"
-          hide-action>
+          :items="products"
+          hide-actions>
+
+          <template slot="items" slot-scope="props">
+            <td>{{props.index}}</td>
+            <td>{{props.item.productNum}}</td>
+            <td>
+              <img :src="props.item.thumbnail" style="width: 70px; margin: 5px;" alt="">
+            </td>
+            <td>{{props.item.productTitle}}</td>
+            <td></td>
+            <td>{{props.item.unit}}</td>
+            <td>한국</td>
+            <td>{{props.item.shippingType}}</td>
+            <td>{{props.item.purchasePrice}}</td>
+            <td>{{props.item.directDeliveryPrice}}</td>
+            <td>{{props.item.deliveryPrice}}</td>
+            <td>{{props.item.inventoryAmount}}</td>
+            <td>{{props.item.salesStatus}}</td>
+          </template>
 
         </v-data-table>
       </v-flex>
@@ -133,8 +152,31 @@
     },
     data(){
       return {
-        headers: []
+        headers: [
+          { text:  'no', value: 'num', sortable: false },
+          { text: '상품코드', value: 'string', sortable: false },
+          { text: '썸네일', value: 'string', sortable: false },
+          { text: '상품명', value: 'string', sortable: false },
+          { text: '카테고리', value: 'string', sortable: false },
+          { text: '규격(단위)', value: 'string', sortable: false },
+          { text: '제조사(원산지)', value: 'string', sortable: false },
+          { text: '배송유형', value: 'string', sortable: false },
+          { text: '매입단가', value: 'string', sortable: false },
+          { text: '직배송단가', value: 'string', sortable: false },
+          { text: '택배배송단가', value: 'string', sortable: false },
+          { text: '재고량', value: 'string', sortable: false },
+          { text: '판매상태', value: 'string', sortable: false },
+        ],
+        products: []
       }
+    },
+    methods: {
+      initProduct() {
+        this.products = this.$models.products;
+      }
+    },
+    created(){
+      this.initProduct();
     }
   }
 </script>

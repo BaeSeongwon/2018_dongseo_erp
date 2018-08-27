@@ -74,7 +74,7 @@ export default{
             this.$set(this, 'value', this.default)
         }
 
-        this.$emit('input', this.value)
+        //this.$emit('input', this.value)
     }, // ========== mounted ========== //
     
     

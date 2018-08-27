@@ -21,7 +21,7 @@
             prepend-icon="event"
             readonly
           ></v-text-field>
-          <v-date-picker v-model="dateStart" no-title @input="menu2 = false"></v-date-picker>
+          <v-date-picker v-model="dateStart" :dateStart="propsDateStart" no-title @input="menu2 = false"></v-date-picker>
         </v-menu>
     
 
@@ -62,9 +62,8 @@ export default{
 
     // ========== props ========== //
     props:{
-        
-        
-        
+        propsDateStart: String,
+        propsDateEnd: String
     },
 
 

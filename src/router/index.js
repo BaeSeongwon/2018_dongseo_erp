@@ -34,6 +34,16 @@ const routes = [
                 path: 'setting',
                 name: 'OrderContainer.Setting',
                 component: () => import('@/components/OrderContainer/Setting')
+            },
+            {
+                path: 'append',
+                name: 'OrderContainer.Append',
+                component: () => import('@/components/OrderContainer/Append')
+            },
+            {
+                path: 'returnAppend',
+                name: 'OrderContainer.Append',
+                component: () => import('@/components/OrderContainer/ReturnAppend')
             }
         ]
     },
@@ -78,6 +88,11 @@ const routes = [
                 path: 'product',
                 name: 'ProductContainer.Product',
                 component: () => import('@/components/ProductContainer/Product')
+            },
+            {
+                path: 'apply',
+                name: 'ProductContainer.Product',
+                component: () => import('@/components/ProductContainer/ProductApply')
             }
         ]
     },
