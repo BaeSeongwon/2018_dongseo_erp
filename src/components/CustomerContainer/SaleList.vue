@@ -15,7 +15,7 @@
         <col width="83%">
       </colgroup>
       <tr>
-        <td style="text-align:left;"><h4>전체 {{desserts.length}}건</h4></td>
+        <td style="text-align:left;"><h4>전체 {{$models.sales.length}}건</h4></td>
         <td><v-btn depressed style="width:97%;" color="success" @click.prevent="modal.addSale=true">할인/할증 등록</v-btn></td>
       </tr>
     </table>
@@ -29,33 +29,32 @@
                 
 
                 <v-data-table
-                    :headers="headers"
-                    :items="desserts"
+                    :headers="[
+                        { text:'번호'         , align:'left', sortable:false },
+                        { text:'구분'         , align:'center', sortable:false },
+                        { text:'등급명'       , align:'center', sortable:false },
+                        { text:'할인/할증'    , align:'center', sortable:false },
+                        { text:'적용된 거래처 수'    , align:'center', sortable:false },
+                        { text:'수정'         , align:'center', sortable:false },
+                        { text:'삭제'         , align:'center', sortable:false },
+                    ]"
+                    :items="$models.sales"
                     hide-actions
                     class=""
                 >
                 
                     <template slot="items" slot-scope="props" >
                         <tr>
-                            <td>{{ props.item.name }}</td>
-                            <td class="text-xs-right">{{ props.item.calories }}</td>
-                            <td class="text-xs-right">{{ props.item.fat }}</td>
-                            <td class="text-xs-right">{{ props.item.carbs }}</td>
-                            <td class="text-xs-right">{{ props.item.protein }}</td>
-                            <td class="justify-center layout px-0">
-                            <v-icon
-                                small
-                                class="mr-2"
-                                @click="editItem(props.item)"
-                            >
-                                edit
-                            </v-icon>
-                            <v-icon
-                                small
-                                @click="deleteItem(props.item)"
-                            >
-                                delete
-                            </v-icon>
+                            <td class="text-xs-left">{{ props.item.number }}</td>
+                            <td class="text-xs-center">{{ props.item.division }}</td>
+                            <td class="text-xs-center">{{ props.item.gradeName }}</td>
+                            <td class="text-xs-center">{{ props.item.sales }}</td>
+                            <td class="text-xs-center">{{ props.item.account }}</td>
+                            <td class="text-xs-center" style="width:4%;">
+                                <v-btn depressed style="width:100%;" >수정</v-btn>
+                            </td>
+                            <td class="text-xs-center" style="width:4%;">
+                                <v-btn depressed style="width:100%;" >삭제</v-btn>
                             </td>
                         </tr>
                     </template>
@@ -137,132 +136,6 @@ export default{
                 addSale : false,
             },
 
-            tableData: [
-                { id: 10, name: 'Prod 01', price: 100000 },
-                { id: 11, name: 'Prod 02', price: 200000 },
-                { id: 12, name: 'Prod 02', price: 200000 },
-                { id: 13, name: 'Prod 03', price: 300000 },
-            ],
-
-            search: '',
-            pagination: {},
-            selected: [],
-
-             headers: [
-                {
-                    text: 'Dessert (100g serving)',
-                    align: 'left',
-                    sortable: false,
-                    value: 'name'
-                },
-                { text: 'Calories', value: 'calories' },
-                { text: 'Fat (g)', value: 'fat' },
-                { text: 'Carbs (g)', value: 'carbs' },
-                { text: 'Protein (g)', value: 'protein' },
-                { text: 'Iron (%)', value: 'iron' }
-            ],
-            desserts: [
-                {
-                    id:1,
-                    value: false,
-                    name: 'Frozen Yogurt',
-                    calories: 159,
-                    fat: 6.0,
-                    carbs: 24,
-                    protein: 4.0,
-                    iron: '1%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Ice cream sandwich',
-                    calories: 237,
-                    fat: 9.0,
-                    carbs: 37,
-                    protein: 4.3,
-                    iron: '1%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Eclair',
-                    calories: 262,
-                    fat: 16.0,
-                    carbs: 23,
-                    protein: 6.0,
-                    iron: '7%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Cupcake',
-                    calories: 305,
-                    fat: 3.7,
-                    carbs: 67,
-                    protein: 4.3,
-                    iron: '8%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Gingerbread',
-                    calories: 356,
-                    fat: 16.0,
-                    carbs: 49,
-                    protein: 3.9,
-                    iron: '16%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Jelly bean',
-                    calories: 375,
-                    fat: 0.0,
-                    carbs: 94,
-                    protein: 0.0,
-                    iron: '0%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Lollipop',
-                    calories: 392,
-                    fat: 0.2,
-                    carbs: 98,
-                    protein: 0,
-                    iron: '2%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Honeycomb',
-                    calories: 408,
-                    fat: 3.2,
-                    carbs: 87,
-                    protein: 6.5,
-                    iron: '45%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Donut',
-                    calories: 452,
-                    fat: 25.0,
-                    carbs: 51,
-                    protein: 4.9,
-                    iron: '22%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'KitKat',
-                    calories: 518,
-                    fat: 26.0,
-                    carbs: 65,
-                    protein: 7,
-                    iron: '6%'
-                }
-            ],
 
             page: 1
 

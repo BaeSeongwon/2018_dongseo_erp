@@ -34,9 +34,9 @@
     <div class="cardbox cardbox-header" >
         <h3>검색</h3>
     </div>
-    <div class="cardbox cardbox-body" >
-        <v-flex sm12>
-            <table width="100%">
+    <div class="cardbox cardbox-body" style="padding:0;">
+        <v-flex sm12 class="td-margin">
+            <table width="100%" >
                 <colgroup>
                     <col width="12%">
                 </colgroup>
@@ -62,14 +62,15 @@
                     <th><h3>키워드검색</h3></th>
                     <td></td>
                     <td>
-                    <v-select
-                        :items="['전체', '거래처명', '브랜드명']"
-                        label="분류"
-                    ></v-select>
+                        <v-select
+                            :items="['전체', '거래처명', '브랜드명']"
+                            label="분류"
+                        ></v-select>
                     </td>
-                    <td></td>
                     <td>
-                    <search-form label="이름을 입력해 주세요" />
+                    </td>
+                    <td>
+                        <search-form label="이름을 입력해 주세요" />
                     </td>
                     <td></td>
                 </tr>
@@ -110,9 +111,9 @@
         <col width="73%">
       </colgroup>
       <tr>
-        <td style="text-align:left;"><h4>전체 {{desserts.length}}건</h4></td>
-        <td><v-btn depressed outline small style="width:97%;" >견적서 출력</v-btn></td>
-        <td><v-btn depressed small style="width:97%;" color="success">신규견적서 등록</v-btn></td>
+        <td style="text-align:left;"><h4>전체 {{$models.estimate.length}}건</h4></td>
+        <td><v-btn depressed outline style="width:97%;" @click="onPrint">견적서 출력</v-btn></td>
+        <td><v-btn depressed style="width:97%;" color="success">신규견적서 등록</v-btn></td>
       </tr>
     </table>
               
@@ -122,37 +123,49 @@
             
             <!-- 데이터 -->
             <v-flex sm12>
-                
 
                 <v-data-table
-                    :headers="headers"
-                    :items="desserts"
+                    :headers="[
+                        { text:'번호', sortable:false },
+                        { text:'작성일', sortable:false },
+                        { text:'거래처', sortable:false },
+                        { text:'수량', sortable:false },
+                        { text:'견적금액', sortable:false },
+                        { text:'등록관리자', sortable:false },
+                    ]"
+                    :items="$models.estimate"
                     hide-actions
                     class=""
                 >
+                <!-- 
+
+                    "number":1,
+                    "date":"2018-08-25 19:24:25",
+                    "account":"오키토키",
+                    "allAmount":2,
+                    "estimatePrice":"2,500원",
+                    "registrationManager":"코모리",
+                    "shippingType":"직배송",
+                    "sector":"유흥주점",
+                    "remarks":"",
+                    "product":[
+
+                 -->
                 
                     <template slot="items" slot-scope="props" >
-                        <tr @click="$router.push('/customers/estimate/detail/'+props.item.id)">
-                            <td>{{ props.item.name }}</td>
-                            <td class="text-xs-right">{{ props.item.calories }}</td>
-                            <td class="text-xs-right">{{ props.item.fat }}</td>
-                            <td class="text-xs-right">{{ props.item.carbs }}</td>
-                            <td class="text-xs-right">{{ props.item.protein }}</td>
-                            <td class="justify-center layout px-0">
-                                <v-icon
-                                    small
-                                    class="mr-2"
-                                    @click="editItem(props.item)"
-                                >
-                                    edit
-                                </v-icon>
-                                <v-icon
-                                    small
-                                    @click="deleteItem(props.item)"
-                                >
-                                    delete
-                                </v-icon>
+                        <tr >
+                            <td class="text-xs-left">
+                                <v-checkbox v-model="checkList" :value="props.item.number"></v-checkbox>
                             </td>
+                            <td @click="$router.push('/customers/estimate/detail/'+props.item.number)" class="text-xs-left">
+                                {{ props.item.date }}
+                            </td>
+                            <td @click="$router.push('/customers/estimate/detail/'+props.item.number)" class="text-xs-left">
+                                {{ props.item.account }}
+                            </td>
+                            <td class="text-xs-left">{{ props.item.allAmount }}</td>
+                            <td class="text-xs-left">{{ props.item.estimatePrice }}</td>
+                            <td class="text-xs-left">{{ props.item.registrationManager }}</td>
                         </tr>
                     </template>
                 </v-data-table>
@@ -176,21 +189,85 @@
 
 <!-- ===== 등록모달 ===== -->
 <modal 
-    title="Sample Modal" 
-    width="35%"
-    :open="modal.customerEdit" 
-    @close="modal.customerEdit = false" 
-    @confirm="modal.customerEdit=false">
+    title="견적서 출력" 
+    width="65%"
+    :open="modal.printer" 
+    @close="modal.printer = false" 
+    @confirm="modal.printer=false">
         
-    <p slot="contents">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. <br>
-        Explicabo consequatur cum impedit velit autem perspiciatis qui aut fugit eligendi corporis earum, <br>
-        dolorem nisi vitae aliquam soluta, aperiam ullam animi consequuntur.
-    </p>
+    <div slot="contents">
+        <table class="printerTable" v-for="(item, idx) in printList" :key="idx">
+            <tr>
+                <th colspan="9">
+                    <h2>견적서</h2>
+                </th>
+            </tr>
+            <tr>
+                <td colspan="5" rowspan="4">
+                {{ item.date }}
+                <br>
+                {{ item.account }} 귀하
+                <br>
+                견적가 {{ item.estimatePrice }}
+                </td>
+                <td rowspan="4">발주처</td>
+                <td>사업자 등록번호</td>
+                <td colspan="2">{{ item.number }}</td>
+            </tr>
+            <tr>
+                <td>상호(법인명)</td>
+                <td colspan="2">신화유통</td>
+            </tr>
+            <tr>
+                <td>대표자/연락처</td>
+                <td colspan="2">홍진표/-</td>
+            </tr>
+            <tr>
+                <td>주소</td>
+                <td colspan="2">(13524) 경기 성남시 분당구 대왕판교로606번길 45 (삼평동, 판교역 푸르지오시티)</td>
+            </tr>
+            <tr>
+                <th>No.</th>
+                <th>상품명</th>
+                <th>규격(단위)</th>
+                <th>제조사(원산지)</th>
+                <th>수량</th>
+                <th>단가</th>
+                <th>공급가액</th>
+                <th>세액</th>
+                <th>총액</th>
+            </tr>
+            <tr v-for="(prod, pid)  in  item.product" :key="pid">
+                <td>{{ prod.number }}</td>
+                <td>{{ prod.productName }}</td>
+                <td>{{ prod.unit }}</td>
+                <td>{{ prod.origin }}</td>
+                <td>{{ prod.amount }}</td>
+                <td>{{ prod.price }}</td>
+                <td>{{ prod.supplyPrice }}</td>
+                <td>{{ prod.vat }}</td>
+                <td>{{ prod.totalPrice }}</td>
+            </tr>
+            <tr>
+                <th rowspan="3">비고</th>
+                <td colspan="6" rowspan="3"></td>
+                <th>공급가 총액</th>
+                <th>2,273원</th>
+            </tr>
+            <tr>
+                <th>부가세 총액</th>
+                <th>227원</th>
+            </tr>
+            <tr>
+                <th>합계 금액</th>
+                <th>2,500원</th>
+            </tr>
+        </table>
+    </div>
 
     <!-- <div slot="buttons">
-        <v-btn color="green darken-1" flat @click.native="modal.customerEdit=false">Close</v-btn>
-        <v-btn color="green darken-1" flat @click.native="modal.customerEdit=false">OK</v-btn>
+        <v-btn color="green darken-1" flat @click.native="modal.printer=false">Close</v-btn>
+        <v-btn color="green darken-1" flat @click.native="modal.printer=false">OK</v-btn>
     </div> -->
 </modal>
 
@@ -238,138 +315,17 @@ export default{
     data() {
         return {
             modal:{
-                customerEdit : false
+                printer : false
             },
             loading:true,
 
-            tableData: [
-                { id: 10, name: 'Prod 01', price: 100000 },
-                { id: 11, name: 'Prod 02', price: 200000 },
-                { id: 12, name: 'Prod 02', price: 200000 },
-                { id: 13, name: 'Prod 03', price: 300000 },
-            ],
 
-            search: '',
-            pagination: {},
-            selected: [],
 
-             headers: [
-                {
-                    text: 'Dessert (100g serving)',
-                    align: 'left',
-                    sortable: false,
-                    value: 'name'
-                },
-                { text: 'Calories', value: 'calories' },
-                { text: 'Fat (g)', value: 'fat' },
-                { text: 'Carbs (g)', value: 'carbs' },
-                { text: 'Protein (g)', value: 'protein' },
-                { text: 'Iron (%)', value: 'iron' }
-            ],
-            desserts: [
-                {
-                    id:1,
-                    value: false,
-                    name: 'Frozen Yogurt',
-                    calories: 159,
-                    fat: 6.0,
-                    carbs: 24,
-                    protein: 4.0,
-                    iron: '1%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Ice cream sandwich',
-                    calories: 237,
-                    fat: 9.0,
-                    carbs: 37,
-                    protein: 4.3,
-                    iron: '1%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Eclair',
-                    calories: 262,
-                    fat: 16.0,
-                    carbs: 23,
-                    protein: 6.0,
-                    iron: '7%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Cupcake',
-                    calories: 305,
-                    fat: 3.7,
-                    carbs: 67,
-                    protein: 4.3,
-                    iron: '8%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Gingerbread',
-                    calories: 356,
-                    fat: 16.0,
-                    carbs: 49,
-                    protein: 3.9,
-                    iron: '16%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Jelly bean',
-                    calories: 375,
-                    fat: 0.0,
-                    carbs: 94,
-                    protein: 0.0,
-                    iron: '0%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Lollipop',
-                    calories: 392,
-                    fat: 0.2,
-                    carbs: 98,
-                    protein: 0,
-                    iron: '2%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Honeycomb',
-                    calories: 408,
-                    fat: 3.2,
-                    carbs: 87,
-                    protein: 6.5,
-                    iron: '45%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Donut',
-                    calories: 452,
-                    fat: 25.0,
-                    carbs: 51,
-                    protein: 4.9,
-                    iron: '22%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'KitKat',
-                    calories: 518,
-                    fat: 26.0,
-                    carbs: 65,
-                    protein: 7,
-                    iron: '6%'
-                }
-            ],
+            page: 1,
 
-            page: 1
+            checkList:[], // 견적서 출력용 체크리스트
+
+            printList:[], // 출력데이터
 
 
 
@@ -392,6 +348,27 @@ export default{
     // ========== methods ========== //
     methods: {
         
+        // ===== onPrint ===== //
+        onPrint(){
+            if(this.checkList.length < 1){
+                alert('선택된 항목이 없습니다')
+                return 
+            }
+            var pl = [] 
+            var id;
+            for(var ii  in  this.checkList){
+                id = this.$models.estimate.findIndex(est=>{
+                    return est.number == this.checkList[ii]
+                })
+                pl.push(this.$models.estimate[id])
+            }
+            
+            this.$set(this.modal, 'printer', true)
+            // setTimeout(()=>{
+                this.$set(this, 'printList', pl)
+            // }, 670)
+        }
+
     },
 
 
@@ -402,8 +379,18 @@ export default{
 
 
 <style>
-.listItem{
-    cursor: pointer;
+.printerTable{
+    margin-bottom:55px !important;
+}
+.printerTable,
+.printerTable td,
+.printerTable th{
+    border: 1px solid #c1c1c1;
+    margin:0;
+    padding:5px;
+}
+.printerTable th{
+    background: #f1f1f1;
 }
 
 </style>

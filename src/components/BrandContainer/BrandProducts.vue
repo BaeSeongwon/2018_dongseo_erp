@@ -2,7 +2,7 @@
 <v-container style=" ">
 
     <!-- ========== 헤더 ========== -->
-    <page-header title="브랜드 관리" />
+    <page-header title="브랜드 상품관리" />
     <br>
 
 
@@ -42,28 +42,28 @@
     <div class="cardbox cardbox-body" style="padding:0;">
     <v-flex sm12 class="td-margin">
         <table width="100%">
-            <colgroup>
-                <col width="13.5%">
-                <col width="1%">
-                <col width="20%">
-                <col width="1%">
-                <col width="41%">
-            </colgroup>
-            <tr>
-                <th><h3>키워드검색</h3></th>
-                <td></td>
-                <td>
-                <v-select
-                    :items="['브랜드명']"
-                    label="분류"
-                ></v-select>
-                </td>
-                <td></td>
-                <td>
-                <search-form label="검색어를 입력해 주세요" />
-                </td>
-                <td></td>
-            </tr>
+          <colgroup>
+            <col width="13.5%">
+            <col width="1%">
+            <col width="20%">
+            <col width="1%">
+            <col width="41%">
+          </colgroup>
+          <tr>
+            <th><h3>키워드검색</h3></th>
+            <td></td>
+            <td>
+              <v-select
+                :items="['브랜드명']"
+                label="분류"
+              ></v-select>
+            </td>
+            <td></td>
+            <td>
+              <search-form label="검색어를 입력해 주세요" />
+            </td>
+            <td></td>
+          </tr>
         </table>
         
       </v-flex>
@@ -77,11 +77,11 @@
 
     <table width="100%">
       <colgroup>
-        <col width="85%">
+        <col width="55%">
       </colgroup>
       <tr>
         <td style="text-align:left;"><h3>브랜드 목록</h3></td>
-        <td><v-btn depressed style="width:97%;" color="success" @click.prevent="modal.createItem = true">브랜드 등록</v-btn></td>
+        <td class="text-xs-right">* 신규 상품 등록은 상품관리 메뉴에서 가능합니다.</td>
       </tr>
     </table>
               
@@ -98,39 +98,18 @@
                         { text: '번호', align:'left', sortable: false },
                         { text: '브랜드명', align:'left', sortable: false },
                         { text: '상품 수', align:'center', sortable: false },
-                        { text: '거래처 수', align:'center', sortable: false },
                         { text: '등록일', align:'center', sortable: false },
-                        { text: '수정', align:'center', sortable: false },
-                        { text: '삭제', align:'center', sortable: false },
                     ]"
                     :items="$models.brands"
                     hide-actions
                     class=""
                 >
                     <template slot="items" slot-scope="props" >
-                        <tr >
+                        <tr @click.prevent="$router.push('/brands/products/'+props.item.number)">
                             <td class="text-xs-left">{{ props.item.number }}</td>
                             <td class="text-xs-left">{{ props.item.brandName }}</td>
                             <td class="text-xs-center">{{ props.item.products==undefined ? 0 : props.item.products.length }}</td>
-                            <td class="text-xs-center">{{ props.item.customers==undefined ? 0 : props.item.customers.length }}</td>
                             <td class="text-xs-center">{{ props.item.date }}</td>
-                            <td class="text-xs-center">
-                                <v-icon
-                                    small
-                                    class="mr-2"
-                                    @click="editItem(props.item)"
-                                >
-                                    edit
-                                </v-icon>
-                            </td>
-                            <td class="text-xs-center">
-                                <v-icon
-                                    small
-                                    @click="deleteItem(props.item.number)"
-                                >
-                                    delete
-                                </v-icon>
-                            </td>
                         </tr>
                     </template>
                 </v-data-table>

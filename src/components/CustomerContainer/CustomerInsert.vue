@@ -38,7 +38,7 @@
     </div>
     <v-layout row cardbox cardbox-body  style="padding:0;">
         <v-flex xs12 md12 >
-            
+
             <table style="width:94%;" class="td-margin">
                 <colgroup>
                     <col width="15%">
@@ -51,6 +51,7 @@
                     <td colspan="3" >
                         <v-text-field
                             label="코드를 입력해 주세요"
+                            v-model="customer.number"
                             required
                         ></v-text-field>
                     </td>
@@ -60,6 +61,7 @@
                     <td>
                         <v-text-field
                             label="거래처명을 입력해 주세요"
+                            v-model="customer.account"
                             required
                         ></v-text-field>
                     </td>
@@ -75,7 +77,8 @@
                     <th><h4 class="center-align">브랜드 선택</h4></th>
                     <td>
                         <v-select
-                            :items="['전체', '거래처명', '브랜드명']"
+                            :items="this.$models.brands"
+                            item-text="brandName"
                             label="분류"
                         ></v-select>
                     </td>
@@ -96,24 +99,37 @@
                 <tr>
                     <th><h4 class="center-align">배송유형</h4></th>
                     <td colspan="3">
-                        <button-toggle :list="[ '전체' , '직접배송' , '택배배송' ]" :default="0" />
+                        <button-toggle 
+                            :list="[ '전체' , '직접배송' , '택배배송' ]" 
+                            :default="(customer.shippingType=='직배송')?1:(customer.shippingType=='택배배송')?2:0" 
+                        />
                     </td>
                 </tr>
                 <tr>
                     <th><h4 class="center-align">아이디</h4></th>
                     <td>
-                        <search-form label="주소를 입력해 주세요" />
+                        <v-text-field
+                            label="아이디를 입력해 주세요"
+                            v-model="customer.accountId"
+                            required
+                        ></v-text-field>
                     </td>
                     <th><h4 class="center-align">패스워드</h4></th>
                     <td>
-                        <search-form label="주소를 입력해 주세요" />
+                        <v-text-field
+                            label="패스워드를 입력해 주세요"
+                            v-model="customer.accountPw"
+                            :type="'password'"
+                            required
+                        ></v-text-field>
                     </td>
                 </tr>
                 <tr>
                     <th><h4 class="center-align">거래처 연락처</h4></th>
                     <td>
                         <v-text-field
-                            label="전화번호를 입력해 주세요"
+                            label="연락처를 입력해 주세요"
+                            v-model="customer.accoutPhone"
                             required
                         ></v-text-field>
                     </td>
@@ -147,15 +163,17 @@
                 <tr>
                     <th><h4 class="center-align">배송 담당자 *</h4></th>
                     <td>
-                        <v-select
-                            :items="['전체', '거래처명', '브랜드명']"
-                            label="분류"
-                        ></v-select>
+                        <v-text-field
+                            label="배송담당자를 입력해 주세요"
+                            v-model="customer.shippingManager"
+                            required
+                        ></v-text-field>
                     </td>
                     <th><h4 class="center-align">연락처</h4></th>
                     <td>
                         <v-text-field
                             label="전화번호를 입력해 주세요"
+                            v-model="customer.shippingPhone"
                             required
                         ></v-text-field>
                     </td>
@@ -163,15 +181,17 @@
                 <tr>
                     <th><h4 class="center-align">영업 담당자</h4></th>
                     <td>
-                        <v-select
-                            :items="['전체', '거래처명', '브랜드명']"
-                            label="분류"
-                        ></v-select>
+                        <v-text-field
+                            label="영업담당자를 입력해 주세요"
+                            v-model="customer.manager"
+                            required
+                        ></v-text-field>
                     </td>
                     <th><h4 class="center-align">연락처</h4></th>
                     <td>
                         <v-text-field
                             label="전화번호를 입력해 주세요"
+                            v-model="customer.managerPhone"
                             required
                         ></v-text-field>
                     </td>
@@ -182,7 +202,7 @@
     </v-layout>
 <br>
 
-    <div class="cardbox cardbox-header" >
+    <!-- <div class="cardbox cardbox-header" >
         <h3>단가 그룹</h3>
     </div>
     <v-layout row cardbox cardbox-body style="padding:0;">
@@ -275,7 +295,7 @@
             </table>
 
         </v-flex>
-    </v-layout>
+    </v-layout> -->
 <br>
 
 
@@ -286,6 +306,7 @@
     bottom
     right
     color="pupple"
+    @click.prevent="save"
 >
     <v-icon>save</v-icon>
 </v-btn>
@@ -302,21 +323,83 @@
     <!-- ===== 세금계산서 ===== -->
     <modal 
         title="세금계산서 정보" 
-        width="55%"
+        width="45%"
         :open="modal.taxbill" 
         @close="modal.taxbill = false" 
         @confirm="modal.taxbill=false">
             
-        <p slot="contents">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. <br>
-            Explicabo consequatur cum impedit velit autem perspiciatis qui aut fugit eligendi corporis earum, <br>
-            dolorem nisi vitae aliquam soluta, aperiam ullam animi consequuntur.
-        </p>
+        <div slot="contents">
+            <table style="width:94%;">
+                <colgroup>
+                    <col width="30%">
+                </colgroup>
+                <tr>
+                    <th><h4 class="center-align">사업자명</h4></th>
+                    <td>
+                        <v-text-field
+                            label="사업자명을 입력해 주세요"
+                            v-model="taxCalculator.name"
+                            required
+                        ></v-text-field>
+                    </td>
+                </tr>
+                <tr>
+                    <th><h4 class="center-align">사업자등록번호</h4></th>
+                    <td>
+                        <v-text-field
+                            label="사업자번호를 입력해 주세요"
+                            v-model="taxCalculator.code"
+                            required
+                        ></v-text-field>
+                    </td>
+                </tr>
+                <tr>
+                    <th><h4 class="center-align">대표자</h4></th>
+                    <td>
+                        <v-text-field
+                            label="대표자명을 입력해 주세요"
+                            v-model="taxCalculator.manager"
+                            required
+                        ></v-text-field>
+                    </td>
+                </tr>
+                <tr>
+                    <th><h4 class="center-align">사업장 소재지</h4></th>
+                    <td>
+                        <v-text-field
+                            label="소재지를 입력해 주세요"
+                            v-model="taxCalculator.addr"
+                            required
+                        ></v-text-field>
+                    </td>
+                </tr>
+                <tr>
+                    <th><h4 class="center-align">사업종류</h4></th>
+                    <td>
+                        <v-text-field
+                            label="사업종류를 입력해 주세요"
+                            v-model="taxCalculator.type"
+                            required
+                        ></v-text-field>
+                    </td>
+                </tr>
+                <tr>
+                    <th><h4 class="center-align">이메일 주소</h4></th>
+                    <td>
+                        <v-text-field
+                            label="이메일을 입력해 주세요"
+                            v-model="taxCalculator.email"
+                            required
+                        ></v-text-field>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-        <!-- <div slot="buttons">
-            <v-btn color="green darken-1" flat @click.native="modal.taxbill=false">Close</v-btn>
-            <v-btn color="green darken-1" flat @click.native="modal.taxbill=false">OK</v-btn>
-        </div> -->
+        <div slot="buttons">
+            <!-- <v-btn color="green darken-1" flat @click.native="modal.taxbill=false">Close</v-btn> -->
+            <v-btn color="green darken-1" flat @click.native="modal.taxbill=false">확인</v-btn>
+        </div>
     </modal>
 
 
@@ -361,6 +444,11 @@ export default{
     },
     
     
+
+
+    
+
+
     
     
     // ========== data ========== //
@@ -373,19 +461,7 @@ export default{
 
 
             loading:true,
-            tabs: null,
-                tabsItems: [
-                    {id: 1, title: 'Indicators', link: 'indicators'},
-                    {id: 2, title: 'Backup', link: 'backup'},
-                    {id: 3, title: 'Logs', link: 'logs'}
-                ],
 
-            tableData: [
-                { id: 10, name: 'Prod 01', price: 100000 },
-                { id: 11, name: 'Prod 02', price: 200000 },
-                { id: 12, name: 'Prod 02', price: 200000 },
-                { id: 13, name: 'Prod 03', price: 300000 },
-            ],
 
 
 
@@ -393,123 +469,44 @@ export default{
             pagination: {},
             selected: [],
 
-             headers: [
-                {
-                    text: 'Dessert (100g serving)',
-                    align: 'left',
-                    sortable: false,
-                    value: 'name'
-                },
-                { text: 'Calories', value: 'calories' },
-                { text: 'Fat (g)', value: 'fat' },
-                { text: 'Carbs (g)', value: 'carbs' },
-                { text: 'Protein (g)', value: 'protein' },
-                { text: 'Iron (%)', value: 'iron' }
-            ],
-            desserts: [
-                {
-                    id:1,
-                    value: false,
-                    name: 'Frozen Yogurt',
-                    calories: 159,
-                    fat: 6.0,
-                    carbs: 24,
-                    protein: 4.0,
-                    iron: '1%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Ice cream sandwich',
-                    calories: 237,
-                    fat: 9.0,
-                    carbs: 37,
-                    protein: 4.3,
-                    iron: '1%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Eclair',
-                    calories: 262,
-                    fat: 16.0,
-                    carbs: 23,
-                    protein: 6.0,
-                    iron: '7%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Cupcake',
-                    calories: 305,
-                    fat: 3.7,
-                    carbs: 67,
-                    protein: 4.3,
-                    iron: '8%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Gingerbread',
-                    calories: 356,
-                    fat: 16.0,
-                    carbs: 49,
-                    protein: 3.9,
-                    iron: '16%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Jelly bean',
-                    calories: 375,
-                    fat: 0.0,
-                    carbs: 94,
-                    protein: 0.0,
-                    iron: '0%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Lollipop',
-                    calories: 392,
-                    fat: 0.2,
-                    carbs: 98,
-                    protein: 0,
-                    iron: '2%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Honeycomb',
-                    calories: 408,
-                    fat: 3.2,
-                    carbs: 87,
-                    protein: 6.5,
-                    iron: '45%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'Donut',
-                    calories: 452,
-                    fat: 25.0,
-                    carbs: 51,
-                    protein: 4.9,
-                    iron: '22%'
-                },
-                {
-                    id:1,
-                    value: false,
-                    name: 'KitKat',
-                    calories: 518,
-                    fat: 26.0,
-                    carbs: 65,
-                    protein: 7,
-                    iron: '6%'
-                }
-            ],
 
-            page: 1
+            page: 1,
+
+            customer_id : null , // customer_id
+            customer: {
+                "number"            :null,
+                "date"              :null,
+                "account"           :null,
+                "brand"             :null,
+                "shippingType"      :null,
+                "sale"              :null,
+                "totalSales"        :null,
+                "accountCode"       :null,
+                "customerSector"    :null,
+                "shipping"          :null,
+                "fax"               :null,
+                "email"             :null,
+                "accoutPhone"       :null,
+                "accountId"         :null,
+                "accountPw"         :null,
+                "manager"           :null,
+                "managerPhone"      :null,
+                "shippingManager"   :null,
+                "shippingPhone"     :null,
+                "salesPerson"       :null,
+                "salesPhone"        :null,
+            },
+
+
+            // 세금계산서
+            taxCalculator:{
+                name:'',
+                code:'',
+                manager:'',
+                addr:'',
+                type:'',
+                email:''
+            }// 
 
 
 
@@ -520,10 +517,8 @@ export default{
     
     
     // ========== created ========== //
-    created() {
-        setTimeout(()=>{
-            this.$set(this, 'loading', false)
-        }, 780)
+    created(){
+        setTimeout(()=>{ this.$set(this, 'loading', false) }, 750)
     },
     
     
@@ -532,7 +527,14 @@ export default{
     // ========== methods ========== //
     methods: {
         
-        
+
+        // ===== 저장 ===== //
+        save(){
+            this.customer.taxCalculator = this.taxCalculator
+            this.$models.customers.push(this.customer)
+            alert('저장되었습니다.')
+            this.$router.push('/customers/list')
+        },
 
     },
 

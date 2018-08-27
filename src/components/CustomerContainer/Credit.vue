@@ -40,8 +40,8 @@
     <div class="cardbox cardbox-header" >
         <h3>검색</h3>
     </div>
-    <div class="cardbox cardbox-body" >
-      <v-flex sm12>
+    <div class="cardbox cardbox-body" style="padding:0;">
+        <v-flex sm12 class="td-margin">
         <table width="100%">
           <colgroup>
             <col width="13.5%">
